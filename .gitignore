@@ -1,0 +1,61 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+out/
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.sqlite
+*.db
+postgres_data/
+
+# Logs
+*.log
+logs/
+
+# Data
+data/*.csv
+data/*.xlsx
+data/*.json
+!data/.gitkeep
+
+# Docker
+docker-compose.override.yml
+
+# Secrets
+*.pem
+*.key
+*.crt
+secrets/
