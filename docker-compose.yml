@@ -20,15 +20,11 @@ services:
       retries: 5
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: ./backend
     container_name: sif-backend
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-sif_user}:${POSTGRES_PASSWORD:-sif_pass}@postgres:5432/${POSTGRES_DB:-sif_db}
       AI_SERVICE_URL: http://ai:8001
-      BACKEND_HOST: 0.0.0.0
-      BACKEND_PORT: 8000
     ports:
       - "8000:8000"
     depends_on:
@@ -39,13 +35,8 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   ai:
-    build:
-      context: ./ai
-      dockerfile: Dockerfile
+    build: ./ai
     container_name: sif-ai
-    environment:
-      AI_SERVICE_HOST: 0.0.0.0
-      AI_SERVICE_PORT: 8001
     ports:
       - "8001:8001"
     volumes:
@@ -54,9 +45,7 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    build: ./frontend
     container_name: sif-frontend
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8000

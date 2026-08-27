@@ -15,40 +15,15 @@ body {
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
 
 @layer components {
-  .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
-  }
-  .btn-primary {
-    @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  .btn-secondary {
-    @apply bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors;
-  }
-  .badge-danger {
-    @apply bg-danger-100 text-danger-700 px-2 py-1 rounded-full text-xs font-medium;
-  }
-  .badge-success {
-    @apply bg-success-100 text-success-700 px-2 py-1 rounded-full text-xs font-medium;
-  }
-  .badge-warning {
-    @apply bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium;
-  }
-  .input-field {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition;
-  }
-  .table-container {
-    @apply overflow-x-auto rounded-lg border border-gray-100;
-  }
-  .table-header {
-    @apply bg-gray-50 text-gray-600 text-sm font-semibold px-4 py-3 text-left;
-  }
-  .table-cell {
-    @apply px-4 py-3 text-sm border-t border-gray-100;
-  }
+  .card { @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6; }
+  .btn-primary { @apply bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-secondary { @apply bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors; }
+  .badge-danger { @apply bg-danger-100 text-danger-700 px-2 py-1 rounded-full text-xs font-medium; }
+  .badge-success { @apply bg-success-100 text-success-700 px-2 py-1 rounded-full text-xs font-medium; }
+  .badge-warning { @apply bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium; }
+  .input-field { @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition; }
 }
