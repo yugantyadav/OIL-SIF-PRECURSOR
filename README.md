@@ -17,7 +17,20 @@
 
 **Ports:** Frontend 3000 | Backend 8000 | AI 8001 | PostgreSQL 5432
 
-## Quick Start
+## Quick Start (No Docker)
+
+```bash
+# 1. Run the startup script
+./start.sh
+
+# 2. Access
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+# API Docs: http://localhost:8000/docs
+# AI Service: http://localhost:8001
+```
+
+## Quick Start (Docker)
 
 ```bash
 # 1. Configure environment
