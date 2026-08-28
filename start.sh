@@ -9,7 +9,9 @@ echo "=== SIF Precursor Detection — Local Startup ==="
 # --- Backend ---
 echo "[1/4] Setting up backend..."
 cd "$DIR/backend"
-$PYTHON -m venv .venv
+if [ ! -d ".venv" ]; then
+  $PYTHON -m venv .venv
+fi
 source .venv/bin/activate
 pip install -r requirements.txt -q
 deactivate
@@ -17,7 +19,9 @@ deactivate
 # --- AI ---
 echo "[2/4] Setting up AI service..."
 cd "$DIR/ai"
-$PYTHON -m venv .venv
+if [ ! -d ".venv" ]; then
+  $PYTHON -m venv .venv
+fi
 source .venv/bin/activate
 pip install -r requirements.txt -q
 deactivate
@@ -25,7 +29,10 @@ deactivate
 # --- Frontend ---
 echo "[3/4] Installing frontend dependencies..."
 cd "$DIR/frontend"
-npm install --silent
+# only install if node_modules missing
+if [ ! -d "node_modules" ]; then
+  npm install --silent
+fi
 
 # --- Start all services ---
 echo "[4/4] Starting services..."
@@ -40,6 +47,18 @@ cd "$DIR/ai"
 source .venv/bin/activate
 uvicorn main:app --host 0.0.0.0 --port 8001 --reload &
 AI_PID=$!
+deactivate
+
+# wait for backend to be ready then seed
+echo "Waiting for backend..."
+for i in {1..15}; do
+  if curl -s http://localhost:8000/health >/dev/null 2>&1; then break; fi
+  sleep 1
+done
+# seed DB if empty
+cd "$DIR/backend"
+source .venv/bin/activate
+python seed.py || true
 deactivate
 
 cd "$DIR/frontend"

@@ -15,16 +15,16 @@
                     └─────────────┘
 ```
 
-**Ports:** Frontend 3000 | Backend 8000 | AI 8001 | PostgreSQL 5432
+**Ports:** Frontend 5173 | Backend 8000 | AI 8001 | PostgreSQL 5432
 
 ## Quick Start (No Docker)
 
 ```bash
-# 1. Run the startup script
+# 1. Run the startup script (uses SQLite, no Docker needed)
 ./start.sh
 
 # 2. Access
-# Frontend: http://localhost:3000
+# Frontend: http://localhost:5173
 # Backend API: http://localhost:8000
 # API Docs: http://localhost:8000/docs
 # AI Service: http://localhost:8001
@@ -36,11 +36,11 @@
 # 1. Configure environment
 cp .env.example .env
 
-# 2. Run all services
+# 2. Run all services (uses PostgreSQL)
 docker compose up --build
 
 # 3. Access
-# Frontend: http://localhost:3000
+# Frontend: http://localhost:5173
 # Backend API: http://localhost:8000
 # API Docs: http://localhost:8000/docs
 # AI Service: http://localhost:8001

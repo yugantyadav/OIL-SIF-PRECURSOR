@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { initialReports, loadReports, saveReports } from "../data/reportsData";
+import { loadReports, saveReports } from "../data/reportsData";
+import { fetchReports, createReport } from "../api";
 
 function Reports() {
   const [search, setSearch] = useState("");
@@ -8,6 +9,7 @@ function Reports() {
   const [risk, setRisk] = useState("All Risk Levels");
   const [reports, setReports] = useState(() => loadReports());
   const [showAddForm, setShowAddForm] = useState(false);
+  const [apiOnline, setApiOnline] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -20,6 +22,17 @@ function Reports() {
     description: "",
   });
 
+  // Try to load from backend on mount; fallback to localStorage
+  useEffect(() => {
+    fetchReports().then((data) => {
+      if (data.length > 0) {
+        setReports(data);
+        saveReports(data);
+        setApiOnline(true);
+      }
+    }).catch(() => setApiOnline(false));
+  }, []);
+
   useEffect(() => {
     saveReports(reports);
   }, [reports]);
@@ -29,22 +42,51 @@ function Reports() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAddReport = (e) => {
+  const handleAddReport = async (e) => {
     e.preventDefault();
     if (!formData.description.trim() || !formData.location.trim() || !formData.reportedBy.trim()) return;
-    const nextIdNum = reports.length > 0 ? Math.max(...reports.map((r) => parseInt(r.id.split("-")[1], 10))) + 1 : 1;
-    const newId = `R-${String(nextIdNum).padStart(3, "0")}`;
-    const newReport = {
-      id: newId,
+
+    const payload = {
       category: formData.category,
       description: formData.description.trim(),
       risk: formData.risk,
       status: formData.status,
       location: formData.location.trim(),
       date: formData.date,
-      reportedBy: formData.reportedBy.trim(),
+      reported_by: formData.reportedBy.trim(),
     };
-    setReports((prev) => [newReport, ...prev]);
+
+    // Try backend first
+    try {
+      const created = await createReport(payload);
+      const newReport = {
+        id: created.id || created.report_id,
+        category: created.category,
+        description: created.description,
+        risk: created.risk,
+        status: created.status,
+        location: created.location,
+        date: created.date || formData.date,
+        reportedBy: created.reportedBy || payload.reported_by,
+      };
+      setReports((prev) => [newReport, ...prev]);
+    } catch {
+      // fallback local
+      const nextIdNum = reports.length > 0 ? Math.max(...reports.map((r) => parseInt(r.id.split("-")[1], 10) || 0)) + 1 : 1;
+      const newId = `R-${String(nextIdNum).padStart(3, "0")}`;
+      const newReport = {
+        id: newId,
+        category: formData.category,
+        description: formData.description.trim(),
+        risk: formData.risk,
+        status: formData.status,
+        location: formData.location.trim(),
+        date: formData.date,
+        reportedBy: formData.reportedBy.trim(),
+      };
+      setReports((prev) => [newReport, ...prev]);
+    }
+
     setFormData({
       category: "Unsafe Act",
       risk: "High",
@@ -62,15 +104,8 @@ function Reports() {
       report.id.toLowerCase().includes(search.toLowerCase()) ||
       report.category.toLowerCase().includes(search.toLowerCase()) ||
       report.description.toLowerCase().includes(search.toLowerCase());
-
-    const matchesCategory =
-      category === "All Categories" ||
-      report.category === category;
-
-    const matchesRisk =
-      risk === "All Risk Levels" ||
-      report.risk === risk;
-
+    const matchesCategory = category === "All Categories" || report.category === category;
+    const matchesRisk = risk === "All Risk Levels" || report.risk === risk;
     return matchesSearch && matchesCategory && matchesRisk;
   });
 
@@ -80,7 +115,7 @@ function Reports() {
         <div>
           <h1>Safety Reports</h1>
           <p className="reports-subtitle">
-            OIL Unsafe Act, Unsafe Condition & Near-Miss Reports
+            OIL Unsafe Act, Unsafe Condition & Near-Miss Reports {apiOnline && <span style={{color:"#22c55e", fontSize:"12px"}}>● API connected</span>}
           </p>
         </div>
         <button className="add-report-btn" onClick={() => setShowAddForm((v) => !v)}>
@@ -92,7 +127,6 @@ function Reports() {
         <form className="add-report-card" onSubmit={handleAddReport}>
           <h3>Add New Report</h3>
           <p className="add-report-subtitle">All fields map directly to the Report Details view</p>
-
           <div className="add-report-grid">
             <div className="form-field">
               <label>Category *</label>
@@ -102,7 +136,6 @@ function Reports() {
                 <option>Near Miss</option>
               </select>
             </div>
-
             <div className="form-field">
               <label>Risk Level *</label>
               <select name="risk" value={formData.risk} onChange={handleChange} required>
@@ -112,7 +145,6 @@ function Reports() {
                 <option>Low</option>
               </select>
             </div>
-
             <div className="form-field">
               <label>Status *</label>
               <select name="status" value={formData.status} onChange={handleChange} required>
@@ -121,28 +153,23 @@ function Reports() {
                 <option>Resolved</option>
               </select>
             </div>
-
             <div className="form-field">
               <label>Location *</label>
               <input name="location" type="text" placeholder="e.g. Drilling Site - Zone A" value={formData.location} onChange={handleChange} required />
             </div>
-
             <div className="form-field">
               <label>Date *</label>
               <input name="date" type="text" value={formData.date} onChange={handleChange} required />
             </div>
-
             <div className="form-field">
               <label>Reported By *</label>
               <input name="reportedBy" type="text" placeholder="e.g. Safety Officer" value={formData.reportedBy} onChange={handleChange} required />
             </div>
           </div>
-
           <div className="form-field full-width">
             <label>Incident Description *</label>
             <textarea name="description" placeholder="Describe the unsafe act, unsafe condition, or near miss..." value={formData.description} onChange={handleChange} required />
           </div>
-
           <div className="add-report-actions">
             <button type="submit" className="submit-report-btn">Submit Report</button>
             <button type="button" className="cancel-report-btn" onClick={() => setShowAddForm(false)}>Cancel</button>
@@ -151,27 +178,14 @@ function Reports() {
       )}
 
       <div className="report-controls">
-        <input
-          type="text"
-          placeholder="Search reports..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
+        <input type="text" placeholder="Search reports..." value={search} onChange={(e) => setSearch(e.target.value)} />
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option>All Categories</option>
           <option>Unsafe Act</option>
           <option>Unsafe Condition</option>
           <option>Near Miss</option>
         </select>
-
-        <select
-          value={risk}
-          onChange={(e) => setRisk(e.target.value)}
-        >
+        <select value={risk} onChange={(e) => setRisk(e.target.value)}>
           <option>All Risk Levels</option>
           <option>Critical</option>
           <option>High</option>
@@ -192,42 +206,22 @@ function Reports() {
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>
             {filteredReports.map((report) => (
               <tr key={report.id}>
                 <td>{report.id}</td>
                 <td>{report.category}</td>
                 <td>{report.description}</td>
-
-                <td>
-                  <span
-                    className={`risk ${report.risk.toLowerCase()}`}
-                  >
-                    {report.risk}
-                  </span>
-                </td>
-
+                <td><span className={`risk ${report.risk.toLowerCase()}`}>{report.risk}</span></td>
                 <td>{report.status}</td>
-
                 <td>
-                  <button
-                    className="view-button"
-                    onClick={() => navigate(`/reports/${report.id}`)}
-                  >
-                    View Details
-                  </button>
+                  <button className="view-button" onClick={() => navigate(`/reports/${report.id}`)}>View Details</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
-        {filteredReports.length === 0 && (
-          <p className="no-results">
-            No reports found.
-          </p>
-        )}
+        {filteredReports.length === 0 && <p className="no-results">No reports found.</p>}
       </div>
     </div>
   );

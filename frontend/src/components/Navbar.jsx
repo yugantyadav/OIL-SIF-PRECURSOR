@@ -8,7 +8,7 @@ function Navbar() {
       <div>
         <Link to="/">Dashboard</Link>
         <Link to="/reports">Reports</Link>
-        <Link to="/prediction">AI Prediction</Link>
+        <Link to="/analyze">AI Prediction</Link>
       </div>
     </nav>
   );

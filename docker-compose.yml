@@ -48,9 +48,10 @@ services:
     build: ./frontend
     container_name: sif-frontend
     environment:
+      VITE_API_URL: http://localhost:8000
       NEXT_PUBLIC_API_URL: http://localhost:8000
     ports:
-      - "3000:3000"
+      - "5173:5173"
     depends_on:
       - backend
     volumes:
