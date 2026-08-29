@@ -1,0 +1,295 @@
+id,report_text,sif_potential,confidence,life_saving_rule,activity,location,barrier_failure,site
+1001,"Worker had a hard hat resting on a desk instead of worn, in a low-risk zone.",False,0.79,None,General Duty,Break Room,"Minor PPE non-compliance, low risk context",Site A
+1002,Minor rust was observed on a non-critical handrail near loading bay.,False,0.94,None,General Observation,Workshop,No significant barrier failure identified,Refinery Unit 2
+1003,"During a motor replacement, the stored mechanical energy was not locked out before work began on hydraulic press.",True,0.87,Energy Isolation,Maintenance,Pump House,Energy source not verified as zero,Drilling Pad 7
+1004,A minor ergonomic complaint was raised regarding the chair setup in the reception desk.,False,0.86,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Site B
+1005,Worker began valve inspection on compressor before applying lockout/tagout.,True,0.83,Energy Isolation,Maintenance,Motor Room,Lock/tag missing on isolation point,Terminal 1
+1006,Tools were left scattered on the workbench in the workshop exit.,False,0.84,None,Housekeeping,Break Room,Minor housekeeping lapse,Terminal 1
+1007,"During inspection, Contractor entered sewer chamber without a standby attendant present.",True,0.89,Confined Space,Inspection,Tank Area,No standby attendant assigned,Site C
+1008,A worker noted a loose drain cover near the parking area.,False,0.81,None,General Observation,Workshop,No significant barrier failure identified,Site A
+1009,Contractor walked into the pinch point area during a lifting operation without warning others.,True,0.95,Line of Fire,Material Handling,Construction Site,Barricades not in place,Terminal 1
+1010,Driver of a light vehicle was not wearing a seatbelt during transit.,True,0.87,Driving/Transportation,Site Driving,Site Access Road,Banksman not used for reversing,Refinery Unit 2
+1011,Worker was seen without a hi-vis vest inside the admin building.,False,0.89,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Refinery Unit 2
+1012,Scaffolder worked on scaffolding without wearing a fall arrest harness.,True,0.84,Working at Height,Maintenance,Pipe Rack Area,Anchor point not secured,Terminal 1
+1013,Grinding was carried out close to combustible material without gas testing beforehand.,True,0.88,Hot Work,Hot Work,Fabrication Yard,Fire watch not assigned,Site B
+1014,Grinding was carried out close to process piping containing hydrocarbons without gas testing beforehand.,True,0.92,Hot Work,Repair,Fabrication Yard,Fire watch not assigned,Terminal 1
+1015,"A minor paint stain was observed on the workshop floor, no slip occurred.",False,0.81,None,General Observation,Workshop,No significant barrier failure identified,Site A
+1016,"During inspection, Technician entered underground pit without a standby attendant present.",True,0.95,Confined Space,Cleaning,Storage Farm,Confined space permit not followed,Site A
+1017,Employee exceeded the site speed limit while operating a heavy truck.,True,0.82,Driving/Transportation,Material Transport,Loading Bay,Speed limit exceeded,Terminal 1
+1018,Grinding was carried out close to an open fuel line without gas testing beforehand.,True,0.83,Hot Work,Fabrication,Fabrication Yard,Flammable materials not cleared from area,Site C
+1019,Visitor was found with sleeves rolled up in a low-hazard area.,False,0.85,None,Admin Task,Break Room,"Minor PPE non-compliance, low risk context",Drilling Pad 7
+1020,Worker began a motor replacement on pump before applying lockout/tagout.,True,0.91,Energy Isolation,Maintenance,Pump House,Lock/tag missing on isolation point,Site A
+1021,A charging cable was found trailing across an office walkway.,False,0.93,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Drilling Pad 7
+1022,"During cleaning, Contractor entered storage tank without a standby attendant present.",True,0.96,Confined Space,Inspection,Tank Area,Confined space permit not followed,Terminal 1
+1023,Technician was standing beneath a load while it was being lifted.,True,0.86,Line of Fire,Construction,Construction Site,No spotter assigned,Site A
+1024,Waste material of type metal scrap was left unsorted near the loading dock.,False,0.91,None,Housekeeping,Corridor,Minor housekeeping lapse,Site B
+1025,Driver of a site pickup truck was not wearing a seatbelt during transit.,True,0.97,Driving/Transportation,Site Driving,Loading Bay,Seatbelt not worn,Refinery Unit 2
+1026,Scaffolder worked on elevated platform without wearing a fall arrest harness.,True,0.82,Working at Height,Inspection,Pipe Rack Area,Ladder not secured before use,Site C
+1027,Contractor removed gloves briefly while walking to the break room.,False,0.81,None,Admin Task,Office,"Minor PPE non-compliance, low risk context",Site B
+1028,An employee reported a worn armrest causing minor discomfort.,False,0.77,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site B
+1029,Rigger stood in the path of moving conveyor while it was in operation.,True,0.92,Line of Fire,Construction,Pipeline Area,Lifting plan not followed,Drilling Pad 7
+1030,Worker was found working on scaffolding with harness unclipped.,True,0.89,Working at Height,Inspection,Pipe Rack Area,Ladder not secured before use,Site C
+1031,Operator exceeded the site speed limit while operating a light vehicle.,True,0.94,Driving/Transportation,Site Driving,Internal Roadway,Speed limit exceeded,Drilling Pad 7
+1032,Operator reversed a site pickup truck without a banksman present.,True,0.85,Driving/Transportation,Transportation,Site Access Road,Seatbelt not worn,Drilling Pad 7
+1033,"A desk drawer near the finance cubicle was left open, posing a minor trip hazard.",False,0.83,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Drilling Pad 7
+1034,Worker began repair work on pump before applying lockout/tagout.,True,0.84,Energy Isolation,Maintenance,Electrical Substation,Isolation not performed,Terminal 1
+1035,Worker entered the underground pit without gas testing.,True,0.89,Confined Space,Cleaning,Process Unit,Ventilation not established before entry,Drilling Pad 7
+1036,"A desk drawer near the second-floor cubicle row was left open, posing a minor trip hazard.",False,0.88,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Site A
+1037,Scaffolder used an unsecured ladder to access pipe rack.,True,0.92,Working at Height,Inspection,Workshop,Edge protection missing,Drilling Pad 7
+1038,"Staff member had a hard hat resting on a desk instead of worn, in a low-risk zone.",False,0.86,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Terminal 1
+1039,Worker entered process vessel without a valid permit or atmospheric testing.,True,0.84,Confined Space,Cleaning,Tank Area,No standby attendant assigned,Refinery Unit 2
+1040,Operator operated a light vehicle despite signs of fatigue after a long shift.,True,0.93,Driving/Transportation,Site Driving,Loading Bay,Speed limit exceeded,Site A
+1041,"A minor oil stain was observed on the corridor floor, no slip occurred.",False,0.87,None,General Observation,Workshop,No significant barrier failure identified,Site B
+1042,"A minor grease stain was observed on the corridor floor, no slip occurred.",False,0.87,None,General Observation,Parking Area,No significant barrier failure identified,Site A
+1043,Contractor exceeded the site speed limit while operating a light vehicle.,True,0.91,Driving/Transportation,Transportation,Parking Area,Mobile phone used while driving,Site A
+1044,"During a lifting operation, Rigger remained in the drop zone of a suspended equipment skid.",True,0.95,Line of Fire,Material Handling,Workshop,Lifting plan not followed,Site C
+1045,A signboard near yard was found slightly faded and hard to read.,False,0.85,None,General Observation,Parking Area,No significant barrier failure identified,Refinery Unit 2
+1046,Technician started electrical work on the hydraulic press without isolating the stored mechanical energy.,True,0.97,Energy Isolation,Maintenance,Electrical Substation,Isolation not performed,Drilling Pad 7
+1047,Contractor walked into the path of the forklift during a lifting operation without warning others.,True,0.84,Line of Fire,Lifting Operation,Laydown Yard,No spotter assigned,Site A
+1048,"During tank gauging, Inspector entered reactor vessel without a standby attendant present.",True,0.89,Confined Space,Maintenance,Tank Area,Confined space permit not followed,Refinery Unit 2
+1049,Spilled water on the floor near the warehouse aisle was not cleaned up promptly.,False,0.86,None,Housekeeping,Warehouse,Minor housekeeping lapse,Drilling Pad 7
+1050,Worker stood in the path of moving crane while it was in operation.,True,0.92,Line of Fire,Material Handling,Pipeline Area,No spotter assigned,Site B
+1051,Worker stood in the path of moving conveyor while it was in operation.,True,0.95,Line of Fire,Lifting Operation,Pipeline Area,Lifting plan not followed,Site B
+1052,Fabrication crew performed welding near process piping containing hydrocarbons without a hot work permit.,True,0.91,Hot Work,Repair,Workshop,Flammable materials not cleared from area,Terminal 1
+1053,A signboard near corridor was found slightly faded and hard to read.,False,0.77,None,General Observation,Parking Area,No significant barrier failure identified,Refinery Unit 2
+1054,Inspector entered the sewer chamber without gas testing.,True,0.92,Confined Space,Inspection,Tank Area,Confined space permit not followed,Terminal 1
+1055,Worker entered ballast tank without a valid permit or atmospheric testing.,True,0.9,Confined Space,Cleaning,Process Unit,Ventilation not established before entry,Refinery Unit 2
+1056,Fabrication crew performed welding near combustible material without a hot work permit.,True,0.95,Hot Work,Hot Work,Workshop,Gas testing not performed before work,Site B
+1057,Inspector entered ballast tank despite an expired confined space entry permit.,True,0.95,Confined Space,Cleaning,Storage Farm,No standby attendant assigned,Drilling Pad 7
+1058,"During cutting operations, sparks were generated near an open fuel line with no fire watch present.",True,0.88,Hot Work,Hot Work,Fabrication Yard,Hot work permit not obtained,Site A
+1059,Driver reversed a light vehicle without a banksman present.,True,0.86,Driving/Transportation,Material Transport,Loading Bay,Mobile phone used while driving,Drilling Pad 7
+1060,Worker climbed pipe rack without securing a lanyard to an anchor point.,True,0.96,Working at Height,Inspection,Tank Farm,Ladder not secured before use,Refinery Unit 2
+1061,Technician worked on rooftop without wearing a fall arrest harness.,True,0.84,Working at Height,Inspection,Workshop,Ladder not secured before use,Drilling Pad 7
+1062,"During a lifting operation, Contractor remained in the drop zone of a suspended equipment skid.",True,0.95,Line of Fire,Construction,Laydown Yard,Barricades not in place,Site A
+1063,Worker was noted wearing open-toed shoes in a non-operational area.,False,0.9,None,General Duty,Admin Building,"Minor PPE non-compliance, low risk context",Site A
+1064,Technician worked on elevated platform without wearing a fall arrest harness.,True,0.92,Working at Height,Inspection,Workshop,Fall arrest harness not used,Site B
+1065,"During maintenance, Contractor entered sewer chamber without a standby attendant present.",True,0.85,Confined Space,Inspection,Vessel Yard,Confined space permit not followed,Drilling Pad 7
+1066,Employee reversed a light vehicle without a banksman present.,True,0.83,Driving/Transportation,Site Driving,Loading Bay,Mobile phone used while driving,Drilling Pad 7
+1067,A worker suggested improved lighting near workshop for better visibility.,False,0.77,None,General Observation,Workshop,No significant barrier failure identified,Refinery Unit 2
+1068,Worker positioned swing radius of the crane while a lifting operation was in progress nearby.,True,0.97,Line of Fire,Lifting Operation,Workshop,No spotter assigned,Site A
+1069,Operator opened conveyor motor while it was still energized; isolation was not verified.,True,0.89,Energy Isolation,Maintenance,Pump House,Isolation not performed,Site C
+1070,Rigger was standing beneath a steel beam while it was being lifted.,True,0.85,Line of Fire,Material Handling,Pipeline Area,Lifting plan not followed,Drilling Pad 7
+1071,Technician performed welding near combustible material without a hot work permit.,True,0.91,Hot Work,Fabrication,Fabrication Yard,Fire watch not assigned,Site A
+1072,An employee reported a loose chair wheel causing minor discomfort.,False,0.88,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site C
+1073,Grinding was carried out close to flammable storage tanks without gas testing beforehand.,True,0.89,Hot Work,Fabrication,Fabrication Yard,Gas testing not performed before work,Drilling Pad 7
+1074,Spilled cleaning solution on the floor near the warehouse aisle was not cleaned up promptly.,False,0.86,None,Housekeeping,Warehouse,Minor housekeeping lapse,Site B
+1075,Inspector climbed into process vessel to inspect it before oxygen levels were checked.,True,0.89,Confined Space,Maintenance,Process Unit,Atmospheric testing not performed,Drilling Pad 7
+1076,Visitor was observed not wearing safety glasses during a low-risk desk task.,False,0.9,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Site C
+1077,A walkway near the loading dock was found partially blocked by empty pallets.,False,0.92,None,Housekeeping,Warehouse,Minor housekeeping lapse,Drilling Pad 7
+1078,"A desk drawer near the meeting room was left open, posing a minor trip hazard.",False,0.94,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Terminal 1
+1079,Maintenance crew removed a guard on gas valve assembly without confirming zero energy state.,True,0.88,Energy Isolation,Maintenance,Electrical Substation,Lock/tag missing on isolation point,Terminal 1
+1080,Minor rust was observed on a non-critical handrail near storage shed.,False,0.9,None,General Observation,Parking Area,No significant barrier failure identified,Terminal 1
+1081,"During structural repair, Technician worked at height without edge protection installed.",True,0.95,Working at Height,Construction,Tank Farm,Fall arrest harness not used,Drilling Pad 7
+1082,Loose cables were found lying across the walkway near the loading dock.,False,0.78,None,Housekeeping,Warehouse,Minor housekeeping lapse,Terminal 1
+1083,Spilled water on the floor near the workshop exit was not cleaned up promptly.,False,0.94,None,Housekeeping,Break Room,Minor housekeeping lapse,Site C
+1084,Contractor began welding without checking for flammable vapors nearby.,True,0.95,Hot Work,Fabrication,Fabrication Yard,Gas testing not performed before work,Site A
+1085,Office lighting in the reception desk was flickering intermittently.,False,0.79,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Refinery Unit 2
+1086,"During hot tapping, sparks were generated near an open fuel line with no fire watch present.",True,0.82,Hot Work,Fabrication,Pipeline Area,Flammable materials not cleared from area,Site B
+1087,Technician started electrical work on the compressor without isolating the electrical supply.,True,0.89,Energy Isolation,Maintenance,Electrical Substation,Isolation not performed,Site A
+1088,Technician started repair work on the conveyor motor without isolating the stored mechanical energy.,True,0.97,Energy Isolation,Maintenance,Pump House,Lock/tag missing on isolation point,Drilling Pad 7
+1089,"During a lifting operation, Worker remained in the drop zone of a suspended equipment skid.",True,0.93,Line of Fire,Lifting Operation,Pipeline Area,No spotter assigned,Site A
+1090,Worker entered underground pit despite an expired confined space entry permit.,True,0.84,Confined Space,Inspection,Process Unit,Confined space permit not followed,Refinery Unit 2
+1091,"During maintenance, the stored mechanical energy was not locked out before work began on electrical panel.",True,0.91,Energy Isolation,Maintenance,Motor Room,Energy source not verified as zero,Site A
+1092,Scaffolder was found working on pipe rack with harness unclipped.,True,0.89,Working at Height,Maintenance,Construction Site,Ladder not secured before use,Drilling Pad 7
+1093,Technician started maintenance on the gas valve assembly without isolating the hydraulic pressure.,True,0.94,Energy Isolation,Maintenance,Compressor Area,LOTO not applied,Site A
+1094,"During a lifting operation, Technician remained in the drop zone of a suspended load.",True,0.9,Line of Fire,Lifting Operation,Workshop,Barricades not in place,Site B
+1095,Contractor entered the process vessel without gas testing.,True,0.84,Confined Space,Maintenance,Vessel Yard,Confined space permit not followed,Site C
+1096,Contractor stood in the path of moving forklift while it was in operation.,True,0.96,Line of Fire,Lifting Operation,Pipeline Area,Exclusion zone not established,Drilling Pad 7
+1097,A walkway near the workshop exit was found partially blocked by empty pallets.,False,0.82,None,Housekeeping,Warehouse,Minor housekeeping lapse,Drilling Pad 7
+1098,Worker climbed into ballast tank to inspect it before oxygen levels were checked.,True,0.95,Confined Space,Cleaning,Process Unit,Atmospheric testing not performed,Site C
+1099,Employee reversed a forklift without a banksman present.,True,0.89,Driving/Transportation,Transportation,Parking Area,Speed limit exceeded,Terminal 1
+1100,Staff member was observed not wearing safety glasses during a low-risk desk task.,False,0.78,None,General Duty,Break Room,"Minor PPE non-compliance, low risk context",Refinery Unit 2
+1101,Technician started valve inspection on the conveyor motor without isolating the stored mechanical energy.,True,0.82,Energy Isolation,Maintenance,Electrical Substation,Energy source not verified as zero,Refinery Unit 2
+1102,Technician began cutting operations without checking for flammable vapors nearby.,True,0.88,Hot Work,Hot Work,Pipeline Area,Flammable materials not cleared from area,Site A
+1103,A worker suggested improved lighting near loading bay for better visibility.,False,0.9,None,General Observation,Yard,No significant barrier failure identified,Terminal 1
+1104,A worker noted uneven pavement near the parking area.,False,0.76,None,General Observation,Parking Area,No significant barrier failure identified,Drilling Pad 7
+1105,Staff member removed gloves briefly while walking to the break room.,False,0.91,None,Admin Task,Office,"Minor PPE non-compliance, low risk context",Site A
+1106,Scaffolder worked on rooftop without wearing a fall arrest harness.,True,0.92,Working at Height,Inspection,Tank Farm,Fall arrest harness not used,Drilling Pad 7
+1107,Contractor conducted cutting operations without isolating nearby combustible material.,True,0.93,Hot Work,Fabrication,Tank Farm,Fire watch not assigned,Site B
+1108,Tools were left scattered on the workbench in the main corridor.,False,0.83,None,Housekeeping,Corridor,Minor housekeeping lapse,Site A
+1109,A small stack of files was left on the floor near the finance cubicle.,False,0.85,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site A
+1110,Contractor was seen without a hi-vis vest inside the admin building.,False,0.87,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Site C
+1111,Technician started valve inspection on the gas valve assembly without isolating the pneumatic line.,True,0.84,Energy Isolation,Maintenance,Electrical Substation,Energy source not verified as zero,Drilling Pad 7
+1112,Contractor climbed into process vessel to inspect it before oxygen levels were checked.,True,0.84,Confined Space,Maintenance,Storage Farm,Ventilation not established before entry,Site A
+1113,Employee operated a forklift despite signs of fatigue after a long shift.,True,0.93,Driving/Transportation,Site Driving,Loading Bay,Mobile phone used while driving,Refinery Unit 2
+1114,A toolbox was stored outside its designated area near the warehouse aisle.,False,0.85,None,Housekeeping,Corridor,Minor housekeeping lapse,Drilling Pad 7
+1115,Scaffolder used an unsecured ladder to access rooftop.,True,0.85,Working at Height,Construction,Pipe Rack Area,Edge protection missing,Site B
+1116,Employee was seen using a mobile phone while driving a forklift on site.,True,0.93,Driving/Transportation,Transportation,Parking Area,Speed limit exceeded,Terminal 1
+1117,Worker used an unsecured ladder to access scaffolding.,True,0.88,Working at Height,Inspection,Construction Site,Ladder not secured before use,Site C
+1118,"During welding, sparks were generated near an open fuel line with no fire watch present.",True,0.86,Hot Work,Fabrication,Tank Farm,Hot work permit not obtained,Site B
+1119,An empty drum was stored outside its designated area near the main corridor.,False,0.94,None,Housekeeping,Break Room,Minor housekeeping lapse,Site C
+1120,Technician entered the underground pit without gas testing.,True,0.91,Confined Space,Maintenance,Vessel Yard,Confined space permit not followed,Site A
+1121,Driver was seen using a mobile phone while driving a forklift on site.,True,0.89,Driving/Transportation,Material Transport,Parking Area,Seatbelt not worn,Site C
+1122,Worker climbed elevated platform without securing a lanyard to an anchor point.,True,0.95,Working at Height,Maintenance,Tank Farm,Fall arrest harness not used,Site B
+1123,A worker suggested improved lighting near yard for better visibility.,False,0.87,None,General Observation,Yard,No significant barrier failure identified,Refinery Unit 2
+1124,Contractor used an unsecured ladder to access elevated platform.,True,0.84,Working at Height,Inspection,Tank Farm,Anchor point not secured,Terminal 1
+1125,Visitor was noted wearing open-toed shoes in a non-operational area.,False,0.91,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Terminal 1
+1126,Recyclable material was mixed with general waste near the break room.,False,0.81,None,Housekeeping,Break Room,Minor housekeeping lapse,Drilling Pad 7
+1127,"A minor paint stain was observed on the yard floor, no slip occurred.",False,0.83,None,General Observation,Parking Area,No significant barrier failure identified,Drilling Pad 7
+1128,Operator was seen using a mobile phone while driving a forklift on site.,True,0.92,Driving/Transportation,Site Driving,Site Access Road,Seatbelt not worn,Terminal 1
+1129,Worker entered underground pit without a valid permit or atmospheric testing.,True,0.97,Confined Space,Cleaning,Process Unit,No standby attendant assigned,Site B
+1130,Worker entered the ballast tank without gas testing.,True,0.87,Confined Space,Maintenance,Process Unit,Ventilation not established before entry,Terminal 1
+1131,"During tank gauging, Worker entered reactor vessel without a standby attendant present.",True,0.84,Confined Space,Inspection,Tank Area,Ventilation not established before entry,Refinery Unit 2
+1132,Contractor entered the ballast tank without gas testing.,True,0.92,Confined Space,Cleaning,Storage Farm,Atmospheric testing not performed,Refinery Unit 2
+1133,Technician performed welding near process piping containing hydrocarbons without a hot work permit.,True,0.92,Hot Work,Hot Work,Pipeline Area,Hot work permit not obtained,Site A
+1134,Contractor was seen using a mobile phone while driving a light vehicle on site.,True,0.96,Driving/Transportation,Site Driving,Internal Roadway,Seatbelt not worn,Site B
+1135,Worker began electrical work on hydraulic press before applying lockout/tagout.,True,0.93,Energy Isolation,Maintenance,Compressor Area,Energy source not verified as zero,Drilling Pad 7
+1136,Inspector climbed into ballast tank to inspect it before oxygen levels were checked.,True,0.83,Confined Space,Maintenance,Process Unit,No standby attendant assigned,Refinery Unit 2
+1137,Operator exceeded the site speed limit while operating a forklift.,True,0.97,Driving/Transportation,Transportation,Internal Roadway,Banksman not used for reversing,Site C
+1138,Worker was found working on elevated platform with harness unclipped.,True,0.93,Working at Height,Inspection,Construction Site,Fall arrest harness not used,Site C
+1139,"During material handling, Rigger remained in the drop zone of a suspended equipment skid.",True,0.95,Line of Fire,Lifting Operation,Pipeline Area,Barricades not in place,Site B
+1140,Worker climbed rooftop without securing a lanyard to an anchor point.,True,0.97,Working at Height,Inspection,Tank Farm,Edge protection missing,Drilling Pad 7
+1141,Worker positioned path of the forklift while material handling was in progress nearby.,True,0.86,Line of Fire,Lifting Operation,Workshop,Exclusion zone not established,Site A
+1142,Worker worked on rooftop without wearing a fall arrest harness.,True,0.9,Working at Height,Inspection,Workshop,Anchor point not secured,Terminal 1
+1143,Worker was observed not wearing safety glasses during a low-risk desk task.,False,0.94,None,General Duty,Break Room,"Minor PPE non-compliance, low risk context",Refinery Unit 2
+1144,Technician removed a guard on compressor without confirming zero energy state.,True,0.94,Energy Isolation,Maintenance,Compressor Area,LOTO not applied,Site B
+1145,A worker noted a small pothole near the parking area.,False,0.9,None,General Observation,Yard,No significant barrier failure identified,Refinery Unit 2
+1146,Fabrication crew began hot tapping without checking for flammable vapors nearby.,True,0.86,Hot Work,Repair,Pipeline Area,Gas testing not performed before work,Site C
+1147,Contractor removed a guard on pump without confirming zero energy state.,True,0.87,Energy Isolation,Maintenance,Compressor Area,Lock/tag missing on isolation point,Site A
+1148,Spilled coolant on the floor near the warehouse aisle was not cleaned up promptly.,False,0.9,None,Housekeeping,Corridor,Minor housekeeping lapse,Site B
+1149,Technician began grinding without checking for flammable vapors nearby.,True,0.94,Hot Work,Hot Work,Workshop,Fire watch not assigned,Site C
+1150,Rigger stood in the path of moving forklift while it was in operation.,True,0.93,Line of Fire,Construction,Workshop,Lifting plan not followed,Refinery Unit 2
+1151,Contractor reversed a site pickup truck without a banksman present.,True,0.87,Driving/Transportation,Material Transport,Parking Area,Speed limit exceeded,Site C
+1152,Technician started repair work on the pump without isolating the stored mechanical energy.,True,0.97,Energy Isolation,Maintenance,Electrical Substation,Isolation not performed,Refinery Unit 2
+1153,Worker entered sewer chamber despite an expired confined space entry permit.,True,0.95,Confined Space,Maintenance,Vessel Yard,Ventilation not established before entry,Refinery Unit 2
+1154,Minor rust was observed on a non-critical handrail near yard.,False,0.86,None,General Observation,Yard,No significant barrier failure identified,Site C
+1155,"During cleaning, Inspector entered underground pit without a standby attendant present.",True,0.97,Confined Space,Cleaning,Vessel Yard,Confined space permit not followed,Refinery Unit 2
+1156,A small stack of files was left on the floor near the second-floor cubicle row.,False,0.81,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site A
+1157,Driver was seen using a mobile phone while driving a site pickup truck on site.,True,0.91,Driving/Transportation,Transportation,Loading Bay,Banksman not used for reversing,Site A
+1158,Spilled coolant on the floor near the main corridor was not cleaned up promptly.,False,0.79,None,Housekeeping,Corridor,Minor housekeeping lapse,Refinery Unit 2
+1159,"During a pump seal replacement, the stored mechanical energy was not locked out before work began on conveyor motor.",True,0.89,Energy Isolation,Maintenance,Compressor Area,Isolation not performed,Site A
+1160,"During electrical work, the hydraulic pressure was not locked out before work began on hydraulic press.",True,0.88,Energy Isolation,Maintenance,Electrical Substation,Lock/tag missing on isolation point,Refinery Unit 2
+1161,Worker was found working on rooftop with harness unclipped.,True,0.86,Working at Height,Maintenance,Pipe Rack Area,Anchor point not secured,Drilling Pad 7
+1162,Loose cables were found lying across the walkway near the office entrance.,False,0.92,None,Housekeeping,Warehouse,Minor housekeeping lapse,Terminal 1
+1163,Driver reversed a forklift without a banksman present.,True,0.88,Driving/Transportation,Transportation,Internal Roadway,Banksman not used for reversing,Refinery Unit 2
+1164,"During maintenance, the pneumatic line was not locked out before work began on conveyor motor.",True,0.92,Energy Isolation,Maintenance,Motor Room,LOTO not applied,Refinery Unit 2
+1165,Contractor was observed not wearing safety glasses during a low-risk desk task.,False,0.95,None,General Duty,Office,"Minor PPE non-compliance, low risk context",Site A
+1166,Contractor was found with sleeves rolled up in a low-hazard area.,False,0.85,None,General Duty,Admin Building,"Minor PPE non-compliance, low risk context",Site A
+1167,A monitor cable was found trailing across an office walkway.,False,0.8,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site C
+1168,"A minor paint stain was observed on the corridor floor, no slip occurred.",False,0.86,None,General Observation,Workshop,No significant barrier failure identified,Refinery Unit 2
+1169,Staff member was found with sleeves rolled up in a low-hazard area.,False,0.79,None,General Duty,Office,"Minor PPE non-compliance, low risk context",Site C
+1170,Operator exceeded the site speed limit while operating a site pickup truck.,True,0.95,Driving/Transportation,Site Driving,Internal Roadway,Seatbelt not worn,Site A
+1171,Contractor operated a site pickup truck despite signs of fatigue after a long shift.,True,0.83,Driving/Transportation,Material Transport,Loading Bay,Seatbelt not worn,Refinery Unit 2
+1172,A network cable was found trailing across an office walkway.,False,0.84,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Site A
+1173,Contractor was standing beneath a equipment skid while it was being lifted.,True,0.89,Line of Fire,Lifting Operation,Pipeline Area,No spotter assigned,Site A
+1174,"During welding, sparks were generated near flammable storage tanks with no fire watch present.",True,0.88,Hot Work,Hot Work,Tank Farm,Gas testing not performed before work,Drilling Pad 7
+1175,Technician started maintenance on the gas valve assembly without isolating the pneumatic line.,True,0.86,Energy Isolation,Maintenance,Pump House,Isolation not performed,Drilling Pad 7
+1176,Technician was standing beneath a steel beam while it was being lifted.,True,0.96,Line of Fire,Material Handling,Laydown Yard,Barricades not in place,Site A
+1177,A slightly loose floor tile was noted in storage shed during a routine walk-through.,False,0.83,None,General Observation,Workshop,No significant barrier failure identified,Terminal 1
+1178,Scaffolder used an unsecured ladder to access elevated platform.,True,0.91,Working at Height,Inspection,Construction Site,Fall arrest harness not used,Site A
+1179,Worker entered the process vessel without gas testing.,True,0.92,Confined Space,Cleaning,Vessel Yard,Ventilation not established before entry,Site A
+1180,A spare part crate was stored outside its designated area near the warehouse aisle.,False,0.86,None,Housekeeping,Corridor,Minor housekeeping lapse,Terminal 1
+1181,Worker was standing beneath a load while it was being lifted.,True,0.92,Line of Fire,Construction,Construction Site,Lifting plan not followed,Site C
+1182,"During maintenance, Technician entered storage tank without a standby attendant present.",True,0.85,Confined Space,Cleaning,Storage Farm,No standby attendant assigned,Refinery Unit 2
+1183,Contractor reversed a heavy truck without a banksman present.,True,0.84,Driving/Transportation,Material Transport,Loading Bay,Speed limit exceeded,Terminal 1
+1184,"During a pump seal replacement, the hydraulic pressure was not locked out before work began on pump.",True,0.9,Energy Isolation,Maintenance,Compressor Area,Isolation not performed,Site A
+1185,"During welding, sparks were generated near process piping containing hydrocarbons with no fire watch present.",True,0.9,Hot Work,Hot Work,Fabrication Yard,Hot work permit not obtained,Site C
+1186,Maintenance crew removed a guard on conveyor motor without confirming zero energy state.,True,0.96,Energy Isolation,Maintenance,Electrical Substation,LOTO not applied,Refinery Unit 2
+1187,Contractor conducted grinding without isolating nearby flammable storage tanks.,True,0.94,Hot Work,Fabrication,Tank Farm,Hot work permit not obtained,Site B
+1188,Visitor removed gloves briefly while walking to the break room.,False,0.85,None,General Duty,Office,"Minor PPE non-compliance, low risk context",Site C
+1189,Technician worked on tank roof without wearing a fall arrest harness.,True,0.93,Working at Height,Construction,Construction Site,Ladder not secured before use,Site C
+1190,"During rigging operation, Contractor remained in the drop zone of a suspended equipment skid.",True,0.85,Line of Fire,Lifting Operation,Laydown Yard,Barricades not in place,Site B
+1191,Worker began valve inspection on electrical panel before applying lockout/tagout.,True,0.95,Energy Isolation,Maintenance,Compressor Area,Isolation not performed,Site B
+1192,Employee was observed not wearing safety glasses during a low-risk desk task.,False,0.83,None,General Duty,Admin Building,"Minor PPE non-compliance, low risk context",Drilling Pad 7
+1193,Waste material of type plastic wrapping was left unsorted near the break room.,False,0.85,None,Housekeeping,Corridor,Minor housekeeping lapse,Drilling Pad 7
+1194,Staff member was noted wearing open-toed shoes in a non-operational area.,False,0.78,None,General Duty,Admin Building,"Minor PPE non-compliance, low risk context",Site A
+1195,Technician used an unsecured ladder to access rooftop.,True,0.86,Working at Height,Maintenance,Pipe Rack Area,Fall arrest harness not used,Terminal 1
+1196,A toolbox was stored outside its designated area near the break room.,False,0.86,None,Housekeeping,Corridor,Minor housekeeping lapse,Site B
+1197,Waste material of type plastic wrapping was left unsorted near the loading dock.,False,0.83,None,Housekeeping,Warehouse,Minor housekeeping lapse,Terminal 1
+1198,Maintenance crew removed a guard on compressor without confirming zero energy state.,True,0.87,Energy Isolation,Maintenance,Motor Room,Energy source not verified as zero,Refinery Unit 2
+1199,Contractor entered the storage tank without gas testing.,True,0.93,Confined Space,Inspection,Storage Farm,Ventilation not established before entry,Site B
+1200,Worker entered storage tank without a valid permit or atmospheric testing.,True,0.89,Confined Space,Maintenance,Vessel Yard,Ventilation not established before entry,Drilling Pad 7
+1201,"During tank gauging, Technician entered ballast tank without a standby attendant present.",True,0.9,Confined Space,Cleaning,Vessel Yard,Atmospheric testing not performed,Site C
+1202,Driver of a forklift was not wearing a seatbelt during transit.,True,0.82,Driving/Transportation,Transportation,Site Access Road,Banksman not used for reversing,Terminal 1
+1203,Staff member was seen without a hi-vis vest inside the admin building.,False,0.8,None,General Duty,Admin Building,"Minor PPE non-compliance, low risk context",Site B
+1204,A worker noted faded lane markings near the parking area.,False,0.8,None,General Observation,Yard,No significant barrier failure identified,Terminal 1
+1205,Recyclable material was mixed with general waste near the workshop exit.,False,0.79,None,Housekeeping,Break Room,Minor housekeeping lapse,Site B
+1206,"During inspection, Inspector entered storage tank without a standby attendant present.",True,0.9,Confined Space,Cleaning,Tank Area,No standby attendant assigned,Site B
+1207,Employee was found with sleeves rolled up in a low-hazard area.,False,0.77,None,General Duty,Office,"Minor PPE non-compliance, low risk context",Terminal 1
+1208,"During a crane lift, Contractor remained in the drop zone of a suspended steel beam.",True,0.91,Line of Fire,Construction,Laydown Yard,Barricades not in place,Site C
+1209,Worker began repair work on hydraulic press before applying lockout/tagout.,True,0.83,Energy Isolation,Maintenance,Compressor Area,Energy source not verified as zero,Refinery Unit 2
+1210,A slightly loose floor tile was noted in loading bay during a routine walk-through.,False,0.84,None,General Observation,Workshop,No significant barrier failure identified,Site C
+1211,Loose cables were found lying across the walkway near the workshop exit.,False,0.89,None,Housekeeping,Warehouse,Minor housekeeping lapse,Site A
+1212,Visitor was seen without a hi-vis vest inside the admin building.,False,0.8,None,Admin Task,Office,"Minor PPE non-compliance, low risk context",Site C
+1213,Inspector entered storage tank despite an expired confined space entry permit.,True,0.83,Confined Space,Maintenance,Vessel Yard,No standby attendant assigned,Terminal 1
+1214,Contractor operated a heavy truck despite signs of fatigue after a long shift.,True,0.83,Driving/Transportation,Material Transport,Site Access Road,Speed limit exceeded,Site A
+1215,"A desk drawer near the reception desk was left open, posing a minor trip hazard.",False,0.94,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site C
+1216,Technician was found working on elevated platform with harness unclipped.,True,0.96,Working at Height,Inspection,Pipe Rack Area,Ladder not secured before use,Site B
+1217,Worker positioned drop zone while rigging operation was in progress nearby.,True,0.94,Line of Fire,Lifting Operation,Workshop,No spotter assigned,Drilling Pad 7
+1218,Worker climbed scaffolding without securing a lanyard to an anchor point.,True,0.95,Working at Height,Maintenance,Tank Farm,Anchor point not secured,Site B
+1219,Contractor exceeded the site speed limit while operating a site pickup truck.,True,0.86,Driving/Transportation,Transportation,Loading Bay,Banksman not used for reversing,Drilling Pad 7
+1220,Technician stood in the path of moving crane while it was in operation.,True,0.85,Line of Fire,Construction,Pipeline Area,Barricades not in place,Site C
+1221,Contractor performed welding near combustible material without a hot work permit.,True,0.89,Hot Work,Fabrication,Fabrication Yard,Fire watch not assigned,Site C
+1222,Maintenance crew removed a guard on pump without confirming zero energy state.,True,0.83,Energy Isolation,Maintenance,Motor Room,Energy source not verified as zero,Terminal 1
+1223,Office lighting in the second-floor cubicle row was flickering intermittently.,False,0.83,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site A
+1224,Rigger walked into the pinch point area during a lifting operation without warning others.,True,0.92,Line of Fire,Construction,Laydown Yard,Lifting plan not followed,Site C
+1225,"During maintenance, Worker entered storage tank without a standby attendant present.",True,0.97,Confined Space,Cleaning,Storage Farm,Confined space permit not followed,Site B
+1226,"During cleaning, Technician entered sewer chamber without a standby attendant present.",True,0.86,Confined Space,Inspection,Tank Area,Ventilation not established before entry,Site C
+1227,Operator opened compressor while it was still energized; isolation was not verified.,True,0.83,Energy Isolation,Maintenance,Pump House,Energy source not verified as zero,Site C
+1228,"A minor paint stain was observed on the loading bay floor, no slip occurred.",False,0.92,None,General Observation,Parking Area,No significant barrier failure identified,Terminal 1
+1229,Employee was seen without a hi-vis vest inside the admin building.,False,0.86,None,Admin Task,Office,"Minor PPE non-compliance, low risk context",Site C
+1230,Worker used an unsecured ladder to access tank roof.,True,0.84,Working at Height,Maintenance,Tank Farm,Ladder not secured before use,Refinery Unit 2
+1231,A minor ergonomic complaint was raised regarding the chair setup in the second-floor cubicle row.,False,0.88,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Site A
+1232,Contractor conducted welding without isolating nearby combustible material.,True,0.87,Hot Work,Hot Work,Pipeline Area,Gas testing not performed before work,Site C
+1233,A small stack of files was left on the floor near the meeting room.,False,0.78,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Site B
+1234,Driver of a heavy truck was not wearing a seatbelt during transit.,True,0.95,Driving/Transportation,Material Transport,Site Access Road,Banksman not used for reversing,Site B
+1235,Spilled water on the floor near the loading dock was not cleaned up promptly.,False,0.93,None,Housekeeping,Office,Minor housekeeping lapse,Drilling Pad 7
+1236,Technician opened compressor while it was still energized; isolation was not verified.,True,0.91,Energy Isolation,Maintenance,Pump House,Isolation not performed,Terminal 1
+1237,Tools were left scattered on the workbench in the warehouse aisle.,False,0.86,None,Housekeeping,Corridor,Minor housekeeping lapse,Drilling Pad 7
+1238,"During electrical work, the electrical supply was not locked out before work began on compressor.",True,0.87,Energy Isolation,Maintenance,Motor Room,LOTO not applied,Site C
+1239,Contractor climbed into storage tank to inspect it before oxygen levels were checked.,True,0.88,Confined Space,Inspection,Vessel Yard,No standby attendant assigned,Terminal 1
+1240,Rigger walked into the swing radius of the crane during a lifting operation without warning others.,True,0.9,Line of Fire,Construction,Pipeline Area,Lifting plan not followed,Drilling Pad 7
+1241,Waste material of type plastic wrapping was left unsorted near the office entrance.,False,0.85,None,Housekeeping,Break Room,Minor housekeeping lapse,Site A
+1242,Office lighting in the finance cubicle was flickering intermittently.,False,0.8,None,Office Work,Admin Building,"Minor office hazard, no corrective barrier failure",Terminal 1
+1243,"During maintenance, the stored mechanical energy was not locked out before work began on pump.",True,0.91,Energy Isolation,Maintenance,Electrical Substation,Energy source not verified as zero,Site A
+1244,Technician entered the ballast tank without gas testing.,True,0.9,Confined Space,Inspection,Tank Area,Confined space permit not followed,Site C
+1245,Welder conducted grinding without isolating nearby flammable storage tanks.,True,0.83,Hot Work,Repair,Workshop,Fire watch not assigned,Site A
+1246,Worker entered ballast tank despite an expired confined space entry permit.,True,0.93,Confined Space,Cleaning,Vessel Yard,Ventilation not established before entry,Site B
+1247,Scaffolder was found working on elevated platform with harness unclipped.,True,0.9,Working at Height,Construction,Tank Farm,Fall arrest harness not used,Site A
+1248,A minor ergonomic complaint was raised regarding the chair setup in the meeting room.,False,0.77,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Site B
+1249,Waste material of type packaging material was left unsorted near the break room.,False,0.8,None,Housekeeping,Office,Minor housekeeping lapse,Drilling Pad 7
+1250,Recyclable material was mixed with general waste near the loading dock.,False,0.88,None,Housekeeping,Warehouse,Minor housekeeping lapse,Site A
+1251,Worker began repair work on compressor before applying lockout/tagout.,True,0.83,Energy Isolation,Maintenance,Motor Room,Lock/tag missing on isolation point,Site B
+1252,"During material handling, Technician remained in the drop zone of a suspended equipment skid.",True,0.86,Line of Fire,Construction,Construction Site,No spotter assigned,Site A
+1253,Recyclable material was mixed with general waste near the main corridor.,False,0.92,None,Housekeeping,Office,Minor housekeeping lapse,Site C
+1254,Worker walked into the pinch point area during a lifting operation without warning others.,True,0.88,Line of Fire,Lifting Operation,Laydown Yard,Barricades not in place,Site A
+1255,Contractor worked on rooftop without wearing a fall arrest harness.,True,0.84,Working at Height,Construction,Construction Site,Edge protection missing,Refinery Unit 2
+1256,Contractor began hot tapping without checking for flammable vapors nearby.,True,0.89,Hot Work,Repair,Tank Farm,Fire watch not assigned,Terminal 1
+1257,Technician opened electrical panel while it was still energized; isolation was not verified.,True,0.96,Energy Isolation,Maintenance,Pump House,LOTO not applied,Drilling Pad 7
+1258,"During material handling, Worker remained in the drop zone of a suspended load.",True,0.94,Line of Fire,Material Handling,Workshop,No spotter assigned,Drilling Pad 7
+1259,A small stack of files was left on the floor near the reception desk.,False,0.76,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Site B
+1260,A slightly loose floor tile was noted in workshop during a routine walk-through.,False,0.85,None,General Observation,Workshop,No significant barrier failure identified,Drilling Pad 7
+1261,"Employee had a hard hat resting on a desk instead of worn, in a low-risk zone.",False,0.88,None,Admin Task,Office,"Minor PPE non-compliance, low risk context",Terminal 1
+1262,An empty drum was stored outside its designated area near the break room.,False,0.89,None,Housekeeping,Office,Minor housekeeping lapse,Drilling Pad 7
+1263,Fabrication crew began cutting operations without checking for flammable vapors nearby.,True,0.84,Hot Work,Repair,Tank Farm,Flammable materials not cleared from area,Site C
+1264,Fabrication crew conducted welding without isolating nearby combustible material.,True,0.84,Hot Work,Fabrication,Pipeline Area,Hot work permit not obtained,Site C
+1265,Technician conducted grinding without isolating nearby an open fuel line.,True,0.97,Hot Work,Repair,Fabrication Yard,Fire watch not assigned,Terminal 1
+1266,An employee reported a sticking drawer causing minor discomfort.,False,0.92,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Refinery Unit 2
+1267,Technician stood in the path of moving conveyor while it was in operation.,True,0.9,Line of Fire,Construction,Workshop,No spotter assigned,Refinery Unit 2
+1268,Operator reversed a forklift without a banksman present.,True,0.88,Driving/Transportation,Material Transport,Loading Bay,Seatbelt not worn,Site A
+1269,A worker suggested improved lighting near corridor for better visibility.,False,0.94,None,General Observation,Workshop,No significant barrier failure identified,Site C
+1270,Contractor conducted welding without isolating nearby process piping containing hydrocarbons.,True,0.97,Hot Work,Hot Work,Tank Farm,Flammable materials not cleared from area,Drilling Pad 7
+1271,Inspector entered underground pit despite an expired confined space entry permit.,True,0.91,Confined Space,Inspection,Storage Farm,Confined space permit not followed,Site C
+1272,A pallet was stored outside its designated area near the loading dock.,False,0.8,None,Housekeeping,Break Room,Minor housekeeping lapse,Drilling Pad 7
+1273,Technician used an unsecured ladder to access elevated platform.,True,0.85,Working at Height,Construction,Tank Farm,Edge protection missing,Site A
+1274,Worker removed gloves briefly while walking to the break room.,False,0.94,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Site A
+1275,Operator was seen using a mobile phone while driving a heavy truck on site.,True,0.85,Driving/Transportation,Transportation,Internal Roadway,Seatbelt not worn,Refinery Unit 2
+1276,"During structural repair, Contractor worked at height without edge protection installed.",True,0.89,Working at Height,Inspection,Workshop,Edge protection missing,Refinery Unit 2
+1277,Office lighting in the meeting room was flickering intermittently.,False,0.78,None,Office Work,Office,"Minor office hazard, no corrective barrier failure",Drilling Pad 7
+1278,Worker was found working on tank roof with harness unclipped.,True,0.84,Working at Height,Construction,Pipe Rack Area,Edge protection missing,Refinery Unit 2
+1279,Technician started maintenance on the compressor without isolating the pneumatic line.,True,0.85,Energy Isolation,Maintenance,Pump House,Lock/tag missing on isolation point,Site A
+1280,Technician started a motor replacement on the compressor without isolating the electrical supply.,True,0.97,Energy Isolation,Maintenance,Pump House,Isolation not performed,Terminal 1
+1281,Contractor was noted wearing open-toed shoes in a non-operational area.,False,0.83,None,Admin Task,Admin Building,"Minor PPE non-compliance, low risk context",Drilling Pad 7
+1282,Employee operated a site pickup truck despite signs of fatigue after a long shift.,True,0.94,Driving/Transportation,Site Driving,Parking Area,Mobile phone used while driving,Site B
+1283,"During hot tapping, sparks were generated near process piping containing hydrocarbons with no fire watch present.",True,0.87,Hot Work,Repair,Fabrication Yard,Gas testing not performed before work,Terminal 1
+1284,Operator reversed a heavy truck without a banksman present.,True,0.95,Driving/Transportation,Material Transport,Parking Area,Seatbelt not worn,Terminal 1
+1285,Maintenance crew removed a guard on electrical panel without confirming zero energy state.,True,0.84,Energy Isolation,Maintenance,Pump House,LOTO not applied,Drilling Pad 7
+1286,"During rigging operation, Rigger remained in the drop zone of a suspended steel beam.",True,0.83,Line of Fire,Material Handling,Construction Site,Barricades not in place,Terminal 1
+1287,Worker began maintenance on conveyor motor before applying lockout/tagout.,True,0.84,Energy Isolation,Maintenance,Motor Room,Energy source not verified as zero,Refinery Unit 2
+1288,"During rigging operation, Rigger remained in the drop zone of a suspended load.",True,0.98,Line of Fire,Construction,Laydown Yard,Barricades not in place,Terminal 1
+1289,Employee was noted wearing open-toed shoes in a non-operational area.,False,0.82,None,Admin Task,Break Room,"Minor PPE non-compliance, low risk context",Site B
+1290,Inspector entered the underground pit without gas testing.,True,0.98,Confined Space,Cleaning,Vessel Yard,No standby attendant assigned,Site B
+1291,"A minor grease stain was observed on the yard floor, no slip occurred.",False,0.77,None,General Observation,Yard,No significant barrier failure identified,Refinery Unit 2
+1292,Minor rust was observed on a non-critical handrail near workshop.,False,0.94,None,General Observation,Yard,No significant barrier failure identified,Drilling Pad 7
+1293,Worker positioned pinch point area while a lifting operation was in progress nearby.,True,0.95,Line of Fire,Material Handling,Workshop,Exclusion zone not established,Site C
+1294,Recyclable material was mixed with general waste near the office entrance.,False,0.88,None,Housekeeping,Office,Minor housekeeping lapse,Site A
