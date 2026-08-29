@@ -37,6 +37,13 @@ def predict_sif(report_text):
 def analyse_report(report_text):
     text = report_text.lower()
     sif_prediction, ml_confidence = predict_sif(report_text)
+    # Hydrocarbon / leakage boost — oil & gas leak near pressurized equipment is SIF precursor even if ML is uncertain
+    LEAKAGE_KEYWORDS = ["oil leakage","oil leak","leakage","gas leak","hydrocarbon","oil spill","spill","leak detected"]
+    leakage_hits = [k for k in LEAKAGE_KEYWORDS if k in text]
+    if leakage_hits:
+        sif_prediction = True
+        ml_confidence = max(ml_confidence, 0.82)
+
     result = {
         "sif_potential": sif_prediction,
         "confidence": ml_confidence,
@@ -46,13 +53,17 @@ def analyse_report(report_text):
         "barrier_failure": "None identified",
         "key_indicators": []
     }
+    # preserve leakage hits even if rule engine overwrites later
+    if leakage_hits:
+        result["key_indicators"] = leakage_hits
     rules = {
         "Energy Isolation": ["lockout","tagout","loto","energized","energised","electrical supply","not isolated","without isolation"],
         "Confined Space": ["confined space","tank","vessel","manhole","oxygen","gas testing","gas test"],
         "Working at Height": ["working at height","height","scaffold","ladder","roof","harness","fall protection"],
         "Hot Work": ["welding","cutting","grinding","sparks","flammable material","combustible material"],
         "Line of Fire": ["suspended load","crane","pinch point","struck by","moving equipment","moving machinery","moving machine","rotating equipment","rotating machinery","heavy object"],
-        "Driving and Transportation": ["driving","vehicle","truck","speeding","seatbelt"]
+        "Driving and Transportation": ["driving","vehicle","truck","speeding","seatbelt"],
+        "Hydrocarbon Release": ["oil leakage","oil leak","leakage","gas leak","hydrocarbon","oil spill","spill","leak detected"]
     }
     best_rule = None
     best_matches = []

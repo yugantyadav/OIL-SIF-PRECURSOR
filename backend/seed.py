@@ -47,15 +47,37 @@ def load_frontend_rows():
 
 def seed():
     Base.metadata.create_all(bind=engine)
+    force = "--force" in sys.argv
     db = SessionLocal()
     try:
-        existing = db.query(models.Report).count()
-        if existing > 0:
-            print(f"Already seeded: {existing} reports present, skipping.")
+        existing_ids = {r[0] for r in db.query(models.Report.report_id).all()}
+        if existing_ids and not force:
+            rows = load_frontend_rows() or FALLBACK_SEED
+            missing = [r for r in rows if r[0] not in existing_ids]
+            if not missing:
+                print(f"Already seeded: {len(existing_ids)} reports present, skipping.")
+                return
+            for report_id, category, description, risk, status, location, date_str, reported_by in missing:
+                db.add(models.Report(
+                    report_id=report_id,
+                    report_type=category,
+                    narrative=description,
+                    risk=risk,
+                    status=status,
+                    site=location,
+                    report_date=utils.parse_date(date_str),
+                    reported_by=reported_by,
+                    activity=category,
+                ))
+            db.commit()
+            print(f"Seeded {len(missing)} missing reports (total now {db.query(models.Report).count()}).")
             return
 
-        rows = load_frontend_rows() or FALLBACK_SEED
+        if force:
+            db.query(models.Report).delete()
+            db.commit()
 
+        rows = load_frontend_rows() or FALLBACK_SEED
         for report_id, category, description, risk, status, location, date_str, reported_by in rows:
             db.add(models.Report(
                 report_id=report_id,
@@ -68,7 +90,6 @@ def seed():
                 reported_by=reported_by,
                 activity=category,
             ))
-
         db.commit()
         print(f"Seeded {len(rows)} reports.")
     finally:

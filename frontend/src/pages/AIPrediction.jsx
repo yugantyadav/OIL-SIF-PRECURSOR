@@ -19,8 +19,15 @@ function AIPrediction() {
     if (prefilled) setReportText(prefilled);
   }, [prefilled]);
 
+  const MAX_LEN = 5000;
+  const overLimit = reportText.length > MAX_LEN;
+
   const analyzeReport = async () => {
     if (!reportText.trim()) return;
+    if (overLimit) {
+      setError(`Report too long (${reportText.length}/${MAX_LEN} chars). Please shorten.`);
+      return;
+    }
     setLoading(true);
     setError("");
     setResult(null);
@@ -56,6 +63,7 @@ function AIPrediction() {
         "Line of Fire": ["Clear line of fire", "Secure suspended loads", "Use exclusion zones"],
         "Hot Work": ["Obtain hot work permit", "Remove flammables", "Provide fire watch"],
         "Driving and Transportation": ["Enforce speed limits", "Check seatbelts", "Brief journey management"],
+        "Hydrocarbon Release": ["Isolate leak source immediately", "Evacuate and cordon area", "Initiate spill containment & fire watch"],
       };
       let actions = [];
       (data.lsr_tags || []).forEach((t) => {
@@ -103,9 +111,14 @@ function AIPrediction() {
           onChange={(e) => !fromReport && setReportText(e.target.value)}
           placeholder="Describe the unsafe act, unsafe condition, or near miss..."
           readOnly={fromReport}
-          style={fromReport ? { background: "#0f172a", opacity: 0.85, cursor: "not-allowed" } : {}}
+          maxLength={MAX_LEN}
+          style={fromReport ? { background: "#F4F4F4", color: "#111111", borderColor: "#FFEEC6", opacity: 1, cursor: "not-allowed" } : {}}
         />
-        <button className="analyze-button" onClick={analyzeReport} disabled={loading}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+          <span style={{ fontSize: "12px", color: overLimit ? "#f87171" : "#94a3b8" }}>{reportText.length}/{MAX_LEN} chars</span>
+          {overLimit && <span style={{ fontSize: "12px", color: "#f87171" }}>Too long — trim to analyze</span>}
+        </div>
+        <button className="analyze-button" onClick={analyzeReport} disabled={loading || overLimit || !reportText.trim()}>
           {loading ? "Analyzing..." : "Analyze Report"}
         </button>
         {error && <p style={{ color: "#f87171", marginTop: "12px" }}>{error}</p>}

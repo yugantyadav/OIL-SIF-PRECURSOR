@@ -38,7 +38,13 @@ function Reports() {
     } catch { setApiOnline(false); }
   };
 
-  useEffect(() => { refreshReports(); }, []);
+  useEffect(() => {
+    refreshReports();
+    const id = setInterval(refreshReports, 15000);
+    const onStorage = () => refreshReports();
+    window.addEventListener("storage", onStorage);
+    return () => { clearInterval(id); window.removeEventListener("storage", onStorage); };
+  }, []);
   useEffect(() => { saveReports(reports); }, [reports]);
 
   const handleChange = (e) => {
@@ -101,9 +107,24 @@ function Reports() {
   const handleCsvUpload = async (e) => {
     e.preventDefault();
     if (!csvFile) return;
+    // guards: 5MB, 5000 rows
+    if (csvFile.size > 5 * 1024 * 1024) {
+      setCsvStatus("✗ File too large — max 5 MB.");
+      return;
+    }
     setCsvUploading(true);
-    setCsvStatus("");
+    setCsvStatus("Checking rows…");
     try {
+      const text = await csvFile.text();
+      const rows = text.trim().split(/\r?\n/);
+      const dataRows = rows.length - 1; // minus header
+      if (dataRows > 5000) {
+        setCsvStatus(`✗ Too many rows (${dataRows}) — max 5000. Split the file.`);
+        setCsvUploading(false);
+        return;
+      }
+      if (dataRows <= 0) throw new Error("CSV has no data rows");
+      setCsvStatus("Uploading…");
       const fd = new FormData();
       fd.append("file", csvFile);
       const res = await fetch(`${API}/api/reports/upload`, { method: "POST", body: fd });

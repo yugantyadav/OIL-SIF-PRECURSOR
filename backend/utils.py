@@ -12,20 +12,29 @@ from sqlalchemy.orm import Session
 
 import models
 
-_DATE_FORMATS = ("%d %B %Y", "%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%d-%m-%Y")
-
+_DATE_FORMATS = (
+    "%d %B %Y", "%d %b %Y", "%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%d-%m-%Y",
+    "%b %d %Y", "%B %d %Y", "%d-%b-%Y", "%Y/%m/%d",
+)
 
 def parse_date(value: Optional[str]) -> Optional[date]:
     """Parse a date string coming from the frontend/CSV into a date object."""
     if not value:
         return None
     value = value.strip()
+    # try strict formats first (title-cased for %B/%b)
     for fmt in _DATE_FORMATS:
-        try:
-            return datetime.strptime(value, fmt).date()
-        except ValueError:
-            continue
-    return None
+        for cand in (value, value.title()):
+            try:
+                return datetime.strptime(cand, fmt).date()
+            except ValueError:
+                continue
+    # fallback: dateutil if available (handles ISO, locale, etc.)
+    try:
+        from dateutil import parser as du_parser
+        return du_parser.parse(value, dayfirst=True).date()
+    except Exception:
+        return None
 
 
 def format_date(value: Optional[date]) -> Optional[str]:
