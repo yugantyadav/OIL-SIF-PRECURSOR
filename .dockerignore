@@ -1,0 +1,12 @@
+.venv
+venv
+__pycache__
+*.pyc
+node_modules
+npm-debug.log
+.git
+.gitignore
+sif.db
+*.db
+*.log
+.DS_Store

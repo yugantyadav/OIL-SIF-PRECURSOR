@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { loadReports, saveReports } from "../data/reportsData";
 import { fetchReports, createReport } from "../api";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 function Reports() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All Categories");
@@ -10,6 +12,9 @@ function Reports() {
   const [reports, setReports] = useState(() => loadReports());
   const [showAddForm, setShowAddForm] = useState(false);
   const [apiOnline, setApiOnline] = useState(false);
+  const [csvFile, setCsvFile] = useState(null);
+  const [csvStatus, setCsvStatus] = useState("");
+  const [csvUploading, setCsvUploading] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -22,20 +27,19 @@ function Reports() {
     description: "",
   });
 
-  // Try to load from backend on mount; fallback to localStorage
-  useEffect(() => {
-    fetchReports().then((data) => {
+  const refreshReports = async () => {
+    try {
+      const data = await fetchReports();
       if (data.length > 0) {
         setReports(data);
         saveReports(data);
         setApiOnline(true);
       }
-    }).catch(() => setApiOnline(false));
-  }, []);
+    } catch { setApiOnline(false); }
+  };
 
-  useEffect(() => {
-    saveReports(reports);
-  }, [reports]);
+  useEffect(() => { refreshReports(); }, []);
+  useEffect(() => { saveReports(reports); }, [reports]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +49,6 @@ function Reports() {
   const handleAddReport = async (e) => {
     e.preventDefault();
     if (!formData.description.trim() || !formData.location.trim() || !formData.reportedBy.trim()) return;
-
     const payload = {
       category: formData.category,
       description: formData.description.trim(),
@@ -55,8 +58,6 @@ function Reports() {
       date: formData.date,
       reported_by: formData.reportedBy.trim(),
     };
-
-    // Try backend first
     try {
       const created = await createReport(payload);
       const newReport = {
@@ -71,7 +72,6 @@ function Reports() {
       };
       setReports((prev) => [newReport, ...prev]);
     } catch {
-      // fallback local
       const nextIdNum = reports.length > 0 ? Math.max(...reports.map((r) => parseInt(r.id.split("-")[1], 10) || 0)) + 1 : 1;
       const newId = `R-${String(nextIdNum).padStart(3, "0")}`;
       const newReport = {
@@ -86,7 +86,6 @@ function Reports() {
       };
       setReports((prev) => [newReport, ...prev]);
     }
-
     setFormData({
       category: "Unsafe Act",
       risk: "High",
@@ -97,6 +96,36 @@ function Reports() {
       description: "",
     });
     setShowAddForm(false);
+  };
+
+  const handleCsvUpload = async (e) => {
+    e.preventDefault();
+    if (!csvFile) return;
+    setCsvUploading(true);
+    setCsvStatus("");
+    try {
+      const fd = new FormData();
+      fd.append("file", csvFile);
+      const res = await fetch(`${API}/api/reports/upload`, { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Upload failed");
+      setCsvStatus(`✓ Uploaded ${data.total_reports} report(s) (batch ${data.batch_id.slice(0,8)}…). Refreshing…`);
+      setCsvFile(null);
+      await refreshReports();
+    } catch (err) {
+      setCsvStatus(`✗ ${err.message}`);
+    } finally {
+      setCsvUploading(false);
+    }
+  };
+
+  const downloadTemplate = () => {
+    const csv = "report_id,date,category,description,risk,status,location,reportedBy\nR-101,30 August 2026,Unsafe Act,Worker entered restricted area without PPE,Critical,Open,Drilling Site - Zone A,Safety Officer\nR-102,29 August 2026,Near Miss,Oil leakage detected near drilling equipment,High,Open,Refinery - Unit B,Site Supervisor\n";
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "reports_template.csv"; a.click();
+    URL.revokeObjectURL(url);
   };
 
   const filteredReports = reports.filter((report) => {
@@ -124,57 +153,77 @@ function Reports() {
       </div>
 
       {showAddForm && (
-        <form className="add-report-card" onSubmit={handleAddReport}>
+        <div className="add-report-card">
           <h3>Add New Report</h3>
-          <p className="add-report-subtitle">All fields map directly to the Report Details view</p>
-          <div className="add-report-grid">
-            <div className="form-field">
-              <label>Category *</label>
-              <select name="category" value={formData.category} onChange={handleChange} required>
-                <option>Unsafe Act</option>
-                <option>Unsafe Condition</option>
-                <option>Near Miss</option>
-              </select>
+          <p className="add-report-subtitle">Add a single report or bulk-upload via CSV — all fields map to Report Details</p>
+
+          {/* Manual form */}
+          <form onSubmit={handleAddReport}>
+            <div className="add-report-grid">
+              <div className="form-field">
+                <label>Category *</label>
+                <select name="category" value={formData.category} onChange={handleChange} required>
+                  <option>Unsafe Act</option>
+                  <option>Unsafe Condition</option>
+                  <option>Near Miss</option>
+                </select>
+              </div>
+              <div className="form-field">
+                <label>Risk Level *</label>
+                <select name="risk" value={formData.risk} onChange={handleChange} required>
+                  <option>Critical</option>
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </div>
+              <div className="form-field">
+                <label>Status *</label>
+                <select name="status" value={formData.status} onChange={handleChange} required>
+                  <option>Open</option>
+                  <option>Under Review</option>
+                  <option>Resolved</option>
+                </select>
+              </div>
+              <div className="form-field">
+                <label>Location *</label>
+                <input name="location" type="text" placeholder="e.g. Drilling Site - Zone A" value={formData.location} onChange={handleChange} required />
+              </div>
+              <div className="form-field">
+                <label>Date *</label>
+                <input name="date" type="text" value={formData.date} onChange={handleChange} required />
+              </div>
+              <div className="form-field">
+                <label>Reported By *</label>
+                <input name="reportedBy" type="text" placeholder="e.g. Safety Officer" value={formData.reportedBy} onChange={handleChange} required />
+              </div>
             </div>
-            <div className="form-field">
-              <label>Risk Level *</label>
-              <select name="risk" value={formData.risk} onChange={handleChange} required>
-                <option>Critical</option>
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-              </select>
+            <div className="form-field full-width">
+              <label>Incident Description *</label>
+              <textarea name="description" placeholder="Describe the unsafe act, unsafe condition, or near miss..." value={formData.description} onChange={handleChange} required />
             </div>
-            <div className="form-field">
-              <label>Status *</label>
-              <select name="status" value={formData.status} onChange={handleChange} required>
-                <option>Open</option>
-                <option>Under Review</option>
-                <option>Resolved</option>
-              </select>
+            <div className="add-report-actions">
+              <button type="submit" className="submit-report-btn">Submit Report</button>
+              <button type="button" className="cancel-report-btn" onClick={() => setShowAddForm(false)}>Cancel</button>
             </div>
-            <div className="form-field">
-              <label>Location *</label>
-              <input name="location" type="text" placeholder="e.g. Drilling Site - Zone A" value={formData.location} onChange={handleChange} required />
-            </div>
-            <div className="form-field">
-              <label>Date *</label>
-              <input name="date" type="text" value={formData.date} onChange={handleChange} required />
-            </div>
-            <div className="form-field">
-              <label>Reported By *</label>
-              <input name="reportedBy" type="text" placeholder="e.g. Safety Officer" value={formData.reportedBy} onChange={handleChange} required />
-            </div>
-          </div>
-          <div className="form-field full-width">
-            <label>Incident Description *</label>
-            <textarea name="description" placeholder="Describe the unsafe act, unsafe condition, or near miss..." value={formData.description} onChange={handleChange} required />
-          </div>
-          <div className="add-report-actions">
-            <button type="submit" className="submit-report-btn">Submit Report</button>
-            <button type="button" className="cancel-report-btn" onClick={() => setShowAddForm(false)}>Cancel</button>
-          </div>
-        </form>
+          </form>
+
+          <hr style={{ border: "none", borderTop: "1px solid #334155", margin: "26px 0 20px" }} />
+
+          {/* CSV upload */}
+          <h4 style={{ margin: "0 0 8px" }}>Bulk Upload via CSV</h4>
+          <p style={{ color: "#94a3b8", fontSize: "13px", margin: "0 0 12px" }}>
+            CSV headers (case-insensitive): <code style={{ background: "#0f172a", padding: "2px 6px", borderRadius: "4px" }}>report_id, date, category, description, risk, status, location, reportedBy</code> — only <code>description</code> is required. All rows are stored with the same fields as above.
+          </p>
+          <form onSubmit={handleCsvUpload} style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+            <input type="file" accept=".csv" onChange={(e) => setCsvFile(e.target.files?.[0] || null)} style={{ color: "white" }} />
+            <button type="submit" className="submit-report-btn" disabled={!csvFile || csvUploading} style={{ opacity: !csvFile || csvUploading ? 0.6 : 1 }}>
+              {csvUploading ? "Uploading…" : "Upload CSV"}
+            </button>
+            <button type="button" className="cancel-report-btn" onClick={downloadTemplate}>Download Template</button>
+          </form>
+          {csvStatus && <p style={{ marginTop: "10px", color: csvStatus.startsWith("✓") ? "#22c55e" : "#f87171", fontSize: "13px" }}>{csvStatus}</p>}
+        </div>
       )}
 
       <div className="report-controls">

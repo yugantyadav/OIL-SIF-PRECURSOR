@@ -56,22 +56,29 @@ def report_to_out(report: models.Report) -> schemas.ReportOut:
 # ============================================================
 
 def create_report(db: Session, payload: schemas.ReportCreate, batch_id: Optional[str] = None) -> models.Report:
-    report = models.Report(
-        report_id=utils.next_report_id(db),
-        report_date=utils.parse_date(payload.date) or None,
-        site=payload.location,
-        activity=payload.activity or payload.category,
-        report_type=payload.category,
-        risk=payload.risk,
-        status=payload.status,
-        reported_by=payload.reported_by,
-        narrative=payload.description,
-        batch_id=batch_id,
-    )
-    db.add(report)
-    db.commit()
-    db.refresh(report)
-    return report
+    from sqlalchemy.exc import IntegrityError
+    for attempt in range(5):
+        report = models.Report(
+            report_id=utils.next_report_id(db),
+            report_date=utils.parse_date(payload.date) or None,
+            site=payload.location,
+            activity=payload.activity or payload.category,
+            report_type=payload.category,
+            risk=payload.risk,
+            status=payload.status,
+            reported_by=payload.reported_by,
+            narrative=payload.description,
+            batch_id=batch_id,
+        )
+        db.add(report)
+        try:
+            db.commit()
+            db.refresh(report)
+            return report
+        except IntegrityError:
+            db.rollback()
+            continue
+    raise RuntimeError("Failed to generate unique report_id after retries")
 
 
 # ============================================================
@@ -113,12 +120,14 @@ def list_reports(
     if batch_id:
         query = query.filter(models.Report.batch_id == batch_id)
     if search:
+        # ilike is case-insensitive on Postgres, SQLite emulates with LIKE; use ilike where available
         like = f"%{search}%"
+        # SQLAlchemy's ilike works on both (SQLite translates to LIKE)
         query = query.filter(
             or_(
-                models.Report.narrative.ilike(like) if hasattr(models.Report.narrative, "ilike") else models.Report.narrative.like(like),
-                models.Report.report_id.like(like),
-                models.Report.site.like(like),
+                models.Report.narrative.ilike(like),
+                models.Report.report_id.ilike(like),
+                models.Report.site.ilike(like),
             )
         )
     if sif_only:

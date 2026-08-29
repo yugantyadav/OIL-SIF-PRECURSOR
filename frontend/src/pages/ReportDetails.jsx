@@ -58,7 +58,7 @@ function ReportDetails() {
           <p className="label">Incident Description</p>
           <p>{report.description}</p>
         </div>
-        <button className="analyze-button" onClick={() => navigate("/analyze")}>Analyze with AI</button>
+        <button className="analyze-button" onClick={() => navigate("/analyze", { state: { narrative: report.description, reportId: report.id } })}>Analyze with AI</button>
       </div>
     </div>
   );
