@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import Statcard from "../components/Statcard";
 import Riskchart from "../components/Riskchart";
 import CategoryChart from "../components/CategoryChart";
+import RiskHeatmap from "../components/RiskHeatmap";
 import { fetchDashboardStats } from "../api";
 import { loadReports } from "../data/reportsData";
 
@@ -69,6 +70,7 @@ function Dashboard() {
           <div className="chart-box"><Riskchart byRisk={stats?.by_risk} /></div>
           <div className="chart-box"><CategoryChart byCategory={stats?.by_category} /></div>
         </div>
+        <RiskHeatmap />
         {stats && stats.total_reports === 0 && <p style={{ color: "#A0A0A0", marginTop: "16px", fontSize: "14px" }}>No reports yet — add one via Reports → Add Report.</p>}
       </div>
     </div>

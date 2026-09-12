@@ -11,10 +11,12 @@ function Navbar() {
         </div>
       </Link>
 
-      <div>
-        <Link to="/" aria-label="Go to Dashboard">Dashboard</Link>
-        <Link to="/reports" aria-label="Go to Reports">Reports</Link>
-        <Link to="/analyze" aria-label="Go to AI Prediction">AI Prediction</Link>
+      <div className="nav-links">
+        <Link to="/" className="nav-link" aria-label="Go to Home">Home</Link>
+        <Link to="/dashboard" className="nav-link" aria-label="Go to Dashboard">Dashboard</Link>
+        <Link to="/reports" className="nav-link" aria-label="Go to Reports">Reports</Link>
+        <Link to="/cctv" className="nav-link" aria-label="Go to CCTV">CCTV</Link>
+        <Link to="/classify" className="nav-link" aria-label="Go to Classify">Classify</Link>
       </div>
     </nav>
   );

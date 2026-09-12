@@ -63,3 +63,21 @@ export async function analyzeNarrative(payload) {
   if (!res.ok) throw new Error("Analyze failed");
   return res.json();
 }
+
+export async function fetchReportLogs(reportId) {
+  const res = await fetch(`${API_BASE}/api/report-logs/${reportId}`);
+  if (!res.ok) throw new Error("No logs");
+  return res.json();
+}
+
+export async function fetchSiteRisk() {
+  const res = await fetch(`${API_BASE}/api/sites/risk`);
+  if (!res.ok) throw new Error("No risk data");
+  return res.json();
+}
+
+export async function postCctvEvent(formData) {
+  const res = await fetch(`${API_BASE}/api/cctv/events`, { method: "POST", body: formData });
+  if (!res.ok) throw new Error("CCTV upload failed");
+  return res.json();
+}

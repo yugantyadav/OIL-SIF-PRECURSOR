@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { loadReports } from "../data/reportsData";
 import { fetchReportById } from "../api";
+import ReportHistory from "../components/ReportHistory";
 
 function ReportDetails() {
   const { id } = useParams();
@@ -59,6 +60,9 @@ function ReportDetails() {
           <p>{report.description}</p>
         </div>
         <button className="analyze-button" onClick={() => navigate("/analyze", { state: { narrative: report.description, reportId: report.id } })}>Analyze with AI</button>
+      </div>
+      <div style={{ marginTop: "20px", maxWidth: "900px" }}>
+        <ReportHistory reportId={report.id} />
       </div>
     </div>
   );

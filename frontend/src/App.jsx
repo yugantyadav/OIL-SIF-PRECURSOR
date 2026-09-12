@@ -5,6 +5,8 @@ import Reports from "./pages/Reports";
 import Navbar from "./components/Navbar";
 import ReportDetails from "./pages/ReportDetails";
 import AIPrediction from "./pages/AIPrediction";
+import Landing from "./pages/Landing";
+import Cctv from "./pages/Cctv";
 
 function Splash({ onDone }) {
   const [fade, setFade] = useState(false);
@@ -44,10 +46,13 @@ function App() {
       {showSplash && <Splash onDone={handleDone} />}
       <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/reports/:id" element={<ReportDetails />} />
         <Route path="/analyze" element={<AIPrediction />} />
+        <Route path="/classify" element={<AIPrediction />} />
+        <Route path="/cctv" element={<Cctv />} />
       </Routes>
     </BrowserRouter>
   );
