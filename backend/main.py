@@ -24,6 +24,7 @@ from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Depends, Que
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.orm import Session
+from cctv_api import router as cctv_router
 
 import crud
 import models
@@ -76,6 +77,8 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+app.include_router(cctv_router)
+
 
 app.add_middleware(
     CORSMiddleware,

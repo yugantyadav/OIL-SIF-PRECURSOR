@@ -15,6 +15,7 @@ function Navbar() {
         <Link to="/" aria-label="Go to Dashboard">Dashboard</Link>
         <Link to="/reports" aria-label="Go to Reports">Reports</Link>
         <Link to="/analyze" aria-label="Go to AI Prediction">AI Prediction</Link>
+        <Link to="/cctv" aria-label="Go to CCTV Monitoring">CCTV Monitoring</Link>
       </div>
     </nav>
   );
