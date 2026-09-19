@@ -1,0 +1,232 @@
+================================================================================
+ OilSIF 2.0 - Things To Do
+ SIF Precursor Detection for Oil India Limited (SIH 2026, PS 26165)
+ GOARC Safety 1.0 Prototype | Ports: 5173 (Website) / 8000 (Backend) / 8001 (AI)
+================================================================================
+
+WHAT IS THIS PROJECT IN ONE LINE?
+-----------------------------------
+We help Oil India find hidden danger signs in daily safety reports and CCTV
+camera footage BEFORE they become a serious injury or death. The computer
+reads what happened, checks it against safety rules, gives a risk score,
+and alerts the safety officer on the website and on their phone.
+
+HOW IT WORKS (SIMPLE FLOW)
+-----------------------------
+1. A worker writes a report: "Oil leakage near drilling equipment" + where + who was in charge.
+   OR a CCTV camera records a video.
+2. The AI reads it / watches it and decides: Is this dangerous? How much? Why?
+3. The system creates a proper report automatically (no need to pick risk manually).
+4. If it is dangerous, the safety officer gets an instant alert on the website and phone.
+5. Everything is saved in a diary that cannot be changed or deleted (for audit).
+
+WHO DOES WHAT - ROLES EXPLAINED FOR EVERYONE
+----------------------------------------------
+
+1. FRONTEND TEAM - The Website Makers (2 people)
+   Plain: They make what you SEE and CLICK on the screen.
+   They build the pages, buttons, colours, and charts.
+   Technical: React 19 + Vite, Poppins font, GOARC colours (Amber #FCAB04, Dark #1A1E22, White).
+
+   To Do:
+   - Make a NEW first page (Landing Page at "/") that explains the project for Oil India
+     with sections: Hero (Industrial Safety Dashboard), Why OIL needs this, How it works
+     (3 steps), For Oil India (drilling/pipeline/refinery), Features, Call to Action.
+     Dashboard moves from "/" to "/dashboard".
+   - Keep the 4 white stat cards in one line (Total Reports, Unsafe Acts, Unsafe Conditions, Near Miss).
+   - Keep Pie chart and Bar chart side-by-side.
+   - Reports page: Simplify "Add Report" to only 3 boxes (What happened, Where, Supervised by).
+     Remove the Risk dropdown - AI will decide risk. After typing, show an AI draft card
+     with risk, category, and actions. User clicks Submit or Edit description.
+   - Add CSV upload: Choose file -> Check size (max 5 MB, max 5000 rows) -> Upload ->
+     Show "Uploaded 50 reports" -> Auto refresh the table.
+   - New CCTV page (/cctv): Show camera list, Upload video or pick sample clip,
+     draw boxes around people and helmets (green = OK, red = missing), show zone
+     overlay, show live verdict (Warning / Serious / Critical).
+   - Make Report Details -> "Analyze with AI" button automatically fill the AI page
+     with that incident text (locked, cannot type) - only Analyze button works.
+   - Auto-report preview: When CCTV finds danger, show the 9-field report
+     (What, Where, When, Why, How, Risk, People, Corrective, Preventive, Video).
+   - Add Site Risk Index: Heatmap on site map (green->amber->red) showing risky zones.
+   - Add History timeline on Report Details (read-only, shows every change).
+
+2. BACKEND TEAM - The Brain Behind the Website (2 people)
+   Plain: They make the website talk to the database and the AI.
+   Technical: FastAPI (Python), Pydantic, SQLAlchemy.
+
+   To Do:
+   - Make the AI the boss of risk: When a report is created (POST /api/reports),
+     first call the AI to get risk/category, then save. Do not let user pick risk.
+   - Create 8 APIs: list reports, create report, get one report, upload CSV,
+     analyze batch, analyze one, dashboard stats, and new ones for CCTV and logs.
+   - New APIs for remodel: POST /api/cctv/events (receive video event),
+     GET /api/cctv/feeds, GET /api/sites/risk (for heatmap),
+     POST /api/incidents/notify, POST /api/incidents/{id}/acknowledge,
+     POST /api/alerts/speaker (mock), GET /api/report-logs/{id}.
+   - Make every report addition / edit / delete write to a new diary table
+     (report_logs) with time, who did it, old and new data. This diary can
+     NEVER be deleted from the website - only we (developers) can change it by code.
+   - Add source column to reports: MANUAL (typed) vs CCTV (camera).
+   - Handle CSV: Accept flexible headers (report_id, date, category etc.),
+     only description is required, auto-rename duplicate IDs (R-101 etc.).
+   - Fix: If two people create a report at same time, retry 5 times to avoid
+     duplicate R-xxx IDs.
+
+3. DATABASE TEAM - The Keepers of Data (1 person, works with Backend)
+   Plain: They design the tables where all information is stored safely.
+   Technical: PostgreSQL 16 (in Docker) and SQLite (for laptop without Docker).
+
+   To Do:
+   - Keep the 8 main tables: reports, classifications (SIF result), lsr_tags (rules),
+     entities (people/places), clusters, report_clusters, batches, users.
+   - Add 2 new tables:
+     a) report_logs (id, report_id, action: CREATE/UPDATE/DELETE/CCTV_CREATE,
+        actor email, timestamp, old_value JSON, new_value JSON, source)
+        - Append-only, never update or delete, indexed by report_id and time.
+        - Show as History timeline.
+     b) site_risk_scores (zone, index 0-100, frequency, severity_sum, recency)
+        - For Site Risk Index heatmap. Updated nightly + on new incident.
+   - Add columns: reports.source, users.push_token, notification_subscriptions.
+   - Make the same tables work on both PostgreSQL (uses UUID/JSONB) and SQLite
+     (uses String/Text + JSON string) via SQLAlchemy.
+   - Make seed.py smart: Reads 50 rows from frontend, inserts only missing
+     report_ids unless --force is used (deletes and re-seeds).
+   - Support 10 date formats (28 August 2026, 30 Aug 2026, 2026-08-30 etc.)
+     with dateutil fallback.
+   - Plan future migrations with Alembic (not yet needed, create_all works for demo).
+
+4. AI TEAM - The Smart Eye (1 person)
+   Plain: They teach the computer to see danger in text and video.
+
+   To Do for TEXT (already partly done):
+   - Keep hybrid: TF-IDF model (sif_model.pkl) + 7 lexicon rules
+     (6 IOGP rules + new Hydrocarbon Release for oil/gas leakage, boost to 0.82).
+   - Ensure oil leakage now correctly gives High 82% (already fixed).
+
+   To Do for CCTV VIDEO (new, detailed - must see everything):
+   - PPE Detection: Teach YOLOv8 to see 8 items: helmet, safety vest, gloves,
+     goggles, safety shoes, harness, mask, plus person. 640x640, confidence 0.45.
+     Per zone PPE profile (Zone A needs helmet+vest). Output: helmet Yes/No + box.
+   - Worker Identification: Use badge/ID OCR (simpler, more private than face).
+     If no badge, use tracking ID (ByteTrack). Save worker_id + role.
+   - Restricted-Zone Detection: Let officer draw a polygon on camera view (4 points).
+     Check if worker foot-point is inside polygon (Shapely point_in_polygon).
+     If inside and not authorized -> violation. Flash red overlay.
+   - Unsafe Behavior / Proximity: If worker bbox is <50 pixels (~1 meter) from
+     machinery ROI and stays >1 second -> proximity violation.
+   - Fall and Suspected Injury: Use pose keypoints -> height/width flip +
+     sudden velocity + dwell on ground >2 seconds + 5-frame window, confidence >=0.65.
+     This triggers Critical.
+   - Fire/Smoke (optional): Small classifier for tank farm zone only.
+   - Severity Levels: Warning (missing helmet -> dashboard toast),
+     Serious (zone intrusion/proximity -> supervisor alert + local warning),
+     Critical (confirmed fall/fire/leak + temporal) -> site-wide alert.
+   - Automatic Escalation: Detection -> verify (confidence + 2s) -> severity ->
+     if Critical: push + speaker -> wait 60s for ACK -> if no ACK: escalate to HSE manager.
+   - Supervisor Alerts: Fan-out to subscribed officers per site/zone via push.
+   - Site-Wide Speaker/Alarm: Mock for demo: Frontend Audio() plays
+     "Emergency Zone B, stop operations" + backend logs speaker_triggered. Real PA
+     needs OIL electrical/network sign-off later.
+   - Evidence/Video Recording: Save 30s before + 60s after clip + 3 screenshots + JSON
+     (event type, time, camera, zone, worker, severity, bbox). Store in ./data/evidence/.
+   - Predictive Safety: Combo logic: restricted entry + missing PPE + proximity
+     = High-risk warning BEFORE a fall happens.
+   - Also: Auto-generate 9-field incident report on every CCTV detection:
+     What, Where, When, Why, How (sequence), Severity, People/objects,
+     Corrective measures, Preventive measures, CCTV evidence + snapshot.
+   - Plus: Calculate Site Risk Index: Frequency * Severity * Recency decay
+     -> heatmap.
+
+5. DOCKER / DEVOPS TEAM - The Plumbers Who Make It Run Everywhere (1 person)
+   Plain: They make the project run with one command on any laptop or server.
+
+   To Do:
+   - Keep 4 services: postgres 16-alpine, backend 8000, ai 8001, frontend 5173.
+   - Add 5th service: ai-vision 8002 (python:3.11-slim + libgomp1 + ultralytics,
+     opencv, supervision, shapely) or extend ai image. Expose 8002.
+   - Fix Dockerfiles: frontend EXPOSE 5173 + vite --host 0.0.0.0,
+     ai add libgomp1, no fragile GitHub tarball.
+   - Fix docker-compose.yml: Remove version key, map 5173:5173, add
+     --host flag, add anonymous volumes /app/.venv + /app/__pycache__
+     to avoid host shadowing, add healthcheck pg_isready.
+   - Update vite.config.js: server {port:5173, host: "0.0.0.0"}.
+   - Add .dockerignore (.venv, node_modules, __pycache__, *.db, .git).
+   - Make start.sh work without Docker: Python 3.12 venvs, wait-for-health
+     loop (curl /health 15x), auto python seed.py, trap kill on Ctrl+C.
+   - Manage secrets: .env is gitignored, .env.example is committed
+     (POSTGRES_*, DATABASE_URL, AI_SERVICE_URL, VITE_API_URL, FCM_SERVER_KEY,
+     CCTV_RTSP_URL, FIREBASE_CREDENTIALS_PATH).
+   - Plan: Health checks (/health, /health/db, /health/ai), backup via
+     postgres_data volume + pg_dump, future CI/CD (GitHub Actions), HTTPS + JWT.
+
+6. APP DEVELOPMENT TEAM - The Phone App (new, 1 person, can be Frontend person)
+   Plain: They make an app on the phone that buzzes the officer.
+
+   To Do:
+   - Use Expo React Native (one code for iPhone + Android, GOARC colours).
+   - Firebase Cloud Messaging (FCM) + APNs: Register push_token -> users.push_token.
+   - Screens: Login (badge/JWT), Live incidents (amber/red), Detail
+     (snapshot + 30s clip + zone map + 9 fields), ACK button + timer,
+     Settings (zone subscriptions, sound).
+   - Offline: Save last 20 incidents via AsyncStorage, badge count.
+   - Poll fallback: GET /api/incidents/live every 15s if push blocked.
+   - Handle push: incident_id only, fetch details via HTTPS (privacy).
+
+7. GIT TEAM - The Librarians (Everyone, but one person leads)
+   Plain: They keep the code history clean.
+
+   Current Rule: Simple - everyone works in their own folders
+   (backend/, frontend/, ai/, database/), so we all push directly to main.
+   No need for many branches. This is what we do now.
+
+   To Do:
+   - Keep main as the live demo branch (what judges see).
+   - If you want safety: create a branch feat/your-task, push, open PR to main,
+     then merge. But not required for folder-isolated work.
+   - Keep .env gitignored, .env.example committed, never commit .venv/sif.db.
+   - Tag versions: v0.5 (current remodel), v1.0 (final demo).
+   - Write good commit messages like "feat: add CCTV page" not "fix stuff".
+
+8. QA / DEMO TEAM - The Testers (Everyone)
+   Plain: They make sure everything works for the judges.
+
+   To Do:
+   - Prepare 2 canned CCTV clips (PPE violation, fall) + 1 leakage clip.
+   - Write 60-second demo script:
+     1) Landing page -> Enter Platform -> Dashboard
+     2) Reports -> Add 3 fields -> AI draft High 82% -> Submit -> History +1
+     3) CCTV -> Upload clip -> AI boxes -> zone flash -> fall 2s -> Critical
+        -> 2 phones buzz (officer + HSE) -> one ACKs -> Dashboard shows Ack
+     4) Show History timeline is immutable, show Site Risk heatmap red Zone B
+     5) Show wave + GOARC + OIL splash polish
+   - Test: npm run build, docker compose up dry-run, record evidence clips.
+   - Test hypotheticals: AI down (fallback), DB down (localStorage), huge CSV
+     (5 MB block), 20k chars (5000 limit), port 8000 busy.
+
+QUICK START FOR ANY NEW MEMBER
+--------------------------------
+Without Docker:  ./start.sh  -> http://localhost:5173
+With Docker:     cp .env.example .env  -> docker compose up --build
+
+WHERE TO FIND THINGS
+---------------------
+- Website code: frontend/src/pages/ (Dashboard, Reports, ReportDetails, AIPrediction, Landing)
+- Backend code: backend/main.py, crud.py, schemas.py, database.py, utils.py, seed.py
+- AI code: ai/main.py, analyser.py, vision.py (new), train_model.py
+- Database: database/init.sql, backend/models.py
+- Docker: docker-compose.yml, backend/Dockerfile, ai/Dockerfile, frontend/Dockerfile, start.sh
+- Docs: docs/Hackathon_Judge_QA.pdf, Hackathon_Brief.pdf, DevOps_Database.pdf, New_Project-Ideas.pdf
+- Data: data/reports_50.csv (R-101..R-150), data/reports_new_50.csv (R-201..R-250), data/cctv/ (videos)
+- GitHub: yugantyadav/OIL-SIF-PRECURSOR, branch main, tag v0.5
+
+GOLDEN RULES
+-------------
+- Never type Risk manually - let AI decide, then Approve or Edit description.
+- Never delete from report_logs via website - it is append-only for audit.
+- Never commit .env, .venv, sif.db, node_modules.
+- Always keep GOARC style: Amber #FCAB04, Dark #1A1E22, White cards, Poppins font, wave dividers.
+- Test with Oil leakage -> should be High 82% Hydrocarbon Release (proves leakage fix works).
+
+================================================================================
+End of OilSIF 2.0 Things To Do | 30 Aug 2026 | For questions, ask the Git lead
+================================================================================
