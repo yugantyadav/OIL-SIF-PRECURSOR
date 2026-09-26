@@ -52,9 +52,11 @@ _origins = ["*"] if CORS_ORIGINS.strip() == "*" else [o.strip() for o in CORS_OR
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Create tables if they don't exist yet (Postgres in docker also gets
-    # database/init.sql on first boot; this is a safety net + what SQLite
-    # local dev relies on).
+    # Create the schema on every boot (local SQLite and Docker Postgres alike).
+    # models.py is the single source of truth — there is no separate init.sql,
+    # because a hand-written one had drifted from the models and made
+    # /api/reports fail with UndefinedColumn. create_all only creates missing
+    # tables; it never alters existing ones, so a mismatch needs a fresh volume.
     try:
         Base.metadata.create_all(bind=engine)
         with engine.connect() as conn:

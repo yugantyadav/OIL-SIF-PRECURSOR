@@ -519,3 +519,253 @@
     grid-template-columns: 1fr;
   }
 }
+/* ============================================================
+   VIDEO UPLOAD
+   ============================================================ */
+
+.upload-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding: 20px;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.upload-copy h2 {
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.upload-copy p {
+  margin: 0;
+  max-width: 640px;
+  color: #6b7280;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.upload-btn {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #fcab04;
+  color: #1a1e22;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background: #e09b03;
+}
+
+.upload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-error {
+  flex-basis: 100%;
+  padding: 10px 13px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.upload-source {
+  flex-basis: 100%;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.upload-source strong {
+  color: #1a1e22;
+}
+
+/* ============================================================
+   SAFETY VERDICT
+   ============================================================ */
+
+.verdict-card {
+  margin-bottom: 18px;
+  padding: 20px;
+  border-radius: 14px;
+  border-left: 6px solid #9ca3af;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+
+.verdict-clear    { border-left-color: #00d084; }
+.verdict-warning  { border-left-color: #fcab04; }
+.verdict-high     { border-left-color: #f97316; }
+.verdict-serious  { border-left-color: #ea580c; }
+.verdict-critical { border-left-color: #cf2e2e; }
+
+.verdict-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.verdict-eyebrow {
+  color: #9ca3af;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.verdict-label {
+  margin-top: 2px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.verdict-clear    .verdict-label { color: #00a86b; }
+.verdict-warning  .verdict-label { color: #b45309; }
+.verdict-high     .verdict-label { color: #c2410c; }
+.verdict-serious  .verdict-label { color: #c2410c; }
+.verdict-critical .verdict-label { color: #cf2e2e; }
+
+.verdict-score {
+  text-align: right;
+}
+
+.verdict-score strong {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.verdict-score span {
+  color: #9ca3af;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.verdict-headline {
+  margin: 12px 0 0;
+  color: #374151;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.verdict-progress {
+  height: 6px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #f3f4f6;
+}
+
+.verdict-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #fcab04;
+  transition: width 0.4s ease;
+}
+
+.verdict-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.violation-chip {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* ============================================================
+   ANALYSING BADGE
+   ============================================================ */
+
+.analysing-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(252, 171, 4, 0.95);
+  color: #1a1e22;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* ============================================================
+   DETECTION SCOPE
+   ============================================================ */
+
+.scope-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.scope-item {
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.scope-yes { color: #047857; }
+.scope-no  { color: #9ca3af; }
+
+/* ============================================================
+   WEBCAM OVERLAY
+   ============================================================ */
+
+/* The <video> is the raw camera picture and sits behind the canvas; the canvas
+   carries the server's annotated render so overlay and detections can never
+   drift apart. The canvas MUST stay transparent — an opaque background here
+   covers the camera and shows a black rectangle until the first annotated
+   frame arrives. */
+.cctv-video,
+.cctv-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 510px;
+  object-fit: contain;
+  background: #10151c;
+}
+
+.cctv-overlay {
+  background: transparent;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.video-container .live-badge,
+.video-container .analysing-badge {
+  z-index: 2;
+}
+
+.upload-btn--alt {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #1a1e22;
+}
+
+.upload-btn--alt:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}

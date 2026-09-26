@@ -5,13 +5,8 @@ import Reports from "./pages/Reports";
 import Navbar from "./components/Navbar";
 import ReportDetails from "./pages/ReportDetails";
 import AIPrediction from "./pages/AIPrediction";
-<<<<<<< HEAD
-import CCTVMonitoring from "./pages/CCTVMonitoring";
-
-=======
 import Landing from "./pages/Landing";
-import Cctv from "./pages/Cctv";
->>>>>>> 7c5c7e71fa66bda87c5501c550c1820c44d36860
+import CCTVMonitoring from "./pages/CCTVMonitoring";
 
 function Splash({ onDone }) {
   const [fade, setFade] = useState(false);
@@ -56,12 +51,8 @@ function App() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/reports/:id" element={<ReportDetails />} />
         <Route path="/analyze" element={<AIPrediction />} />
-<<<<<<< HEAD
-        <Route path="/cctv" element={<CCTVMonitoring />} />
-=======
         <Route path="/classify" element={<AIPrediction />} />
-        <Route path="/cctv" element={<Cctv />} />
->>>>>>> 7c5c7e71fa66bda87c5501c550c1820c44d36860
+        <Route path="/cctv" element={<CCTVMonitoring />} />
       </Routes>
     </BrowserRouter>
   );

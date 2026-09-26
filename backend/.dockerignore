@@ -1,0 +1,31 @@
+# Virtual environments — 84 MB of host-site-packages that must never enter the
+# image (the image installs its own via pip).
+.venv
+venv
+env
+
+# Bytecode / caches
+__pycache__
+*.py[cod]
+*$py.class
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Local dev database — the container talks to Postgres, not this.
+*.db
+*.sqlite
+
+# Secrets and noise
+.env
+.env.*
+!.env.example
+*.log
+logs
+
+# VCS + editor
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store

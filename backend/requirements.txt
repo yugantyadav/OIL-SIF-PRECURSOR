@@ -1,6 +1,10 @@
 fastapi==0.110.3
 uvicorn[standard]>=0.30.1
 sqlalchemy>=2.0.30
+# SQLAlchemy 2.x resolves a plain postgresql:// URL to the psycopg3 dialect,
+# so psycopg (v3) must be present alongside psycopg2-binary. They install to
+# different top-level modules (psycopg vs psycopg2) and coexist safely.
+psycopg[binary]>=3.1.19
 psycopg2-binary>=2.9.9
 aiosqlite>=0.20.0
 pydantic>=2.9.2

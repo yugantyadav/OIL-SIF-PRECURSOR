@@ -8,9 +8,17 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sif_pass}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # No schema seed file here on purpose. The schema is created from
+      # backend/models.py via Base.metadata.create_all() in the backend
+      # lifespan, so models.py stays the single source of truth. (The former
+      # database/init.sql had drifted out of sync — missing reports.risk/
+      # status/reported_by and uuid ids where the models use String(36) — and
+      # caused /api/reports to fail with UndefinedColumn.)
     ports:
-      - "5432:5432"
+      # Host port remapped to 5433: a native PostgreSQL already listens on 5432
+      # on this machine. The backend connects over the compose network via the
+      # `postgres:5432` service name, so only host-side psql needs this mapping.
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sif_user} -d ${POSTGRES_DB:-sif_db}"]
       interval: 5s
@@ -32,6 +40,9 @@ services:
       - ./backend:/app
       - /app/__pycache__
       - /app/.venv
+      # Uploaded CCTV clips are written to /data/cctv inside the container;
+      # mounting ./data keeps them on the host across rebuilds.
+      - ./data:/data
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   ai:

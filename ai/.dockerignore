@@ -1,0 +1,31 @@
+# The single biggest build-context cost in this project: ai/.venv is ~1.2 GB
+# and is uploaded to the Docker daemon on every build. The image builds its own
+# environment from requirements.txt, so none of this host's site-packages belong
+# here. This alone shrinks the context from 1.2 GB to a few MB.
+.venv
+venv
+env
+
+__pycache__
+*.py[cod]
+*$py.class
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Secrets and noise
+.env
+.env.*
+!.env.example
+*.log
+logs
+
+# VCS + editor
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+
+# NOTE: sif_model.pkl, vectorizer.pkl and safety_reports.csv are deliberately
+# NOT ignored — they are required at inference time.

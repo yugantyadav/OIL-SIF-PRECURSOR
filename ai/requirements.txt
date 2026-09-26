@@ -6,7 +6,10 @@ httpx>=0.27.0
 python-dotenv>=1.0.1
 
 # NLP / ML — relaxed for prebuilt wheels (avoids blis Cython build on Python 3.12)
-torch --index-url https://download.pytorch.org/whl/cpu
+# NOTE: torch is NOT pinned here on purpose. Installing it from the default
+# index resolves to the CUDA build (~4GB of nvidia-* wheels, unusable on
+# CPU-only/arm64 machines). The Dockerfile pre-installs the CPU build from
+# https://download.pytorch.org/whl/cpu so this resolves against that.
 transformers>=4.41.2
 sentence-transformers>=3.0.1
 spacy>=3.7.4

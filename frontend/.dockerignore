@@ -1,0 +1,26 @@
+# node_modules (140 MB) and dist are regenerated inside the image by `npm ci`.
+node_modules
+dist
+build
+out
+.next
+.vite
+
+# Test / coverage output
+coverage
+
+# Secrets and noise
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VCS + editor
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store

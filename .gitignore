@@ -51,6 +51,12 @@ data/*.xlsx
 data/*.json
 !data/.gitkeep
 
+# CCTV runtime output — uploads are named <uuid8>_<origname>.mp4 and the
+# annotated renders are derived artifacts. Both are regenerable, so only the
+# demo placeholder below is tracked.
+data/cctv/*
+!data/cctv/sample_safety_clip.mp4
+
 # Docker
 docker-compose.override.yml
 
