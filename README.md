@@ -120,7 +120,7 @@ git push -u origin feat/your-task  # PAT: ghp_... via https://token@github
 - **First CSV** `data/reports_50.csv` (and `~/Downloads/reports_template (1).csv`): 50 rows `R-101`–`R-150` mapped from `reportsData.js` (headers: report_id,date,category,description,risk,status,location,reportedBy).
 - **New CSV** `data/reports_new_50.csv` (and `~/Downloads/reports_new_50.csv`): 50 fresh OIL incidents `R-201`–`R-250` (welder hot work, gas cloud, corroded pipeline, rigger under casing, etc.).
 
-## 12. SIH Selection Ideas (Judges)
+## 12. Selection Ideas
 
 Explainable AI snippets, similar-incident finder (embeddings), risk heatmap, automated safety bulletin PDF, LLM root-cause chain, 9-rule severity matrix, mobile voice-to-report.
 
@@ -138,7 +138,6 @@ Explainable AI snippets, similar-incident finder (embeddings), risk heatmap, aut
 
 ## 15. PDFs Generated
 
-- `docs/Hackathon_Judge_QA.pdf` (23 KB) — 20 judge Q&A + group table, GOARC, leakage fix.
 - `docs/Hackathon_Brief.pdf` (12 KB) — Brief with Database deep-dive.
 - `docs/DevOps_Database.pdf` (9.9 KB) — DevOps + Database complete knowledge base.
 - `docs/New_Project-Ideas.pdf` (13 KB) — Remodel overview + per-group To-Do.

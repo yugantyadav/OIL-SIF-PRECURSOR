@@ -180,7 +180,7 @@ WHO DOES WHAT - ROLES EXPLAINED FOR EVERYONE
    No need for many branches. This is what we do now.
 
    To Do:
-   - Keep main as the live demo branch (what judges see).
+   - Keep main as the live demo branch (what the demo audience sees).
    - If you want safety: create a branch feat/your-task, push, open PR to main,
      then merge. But not required for folder-isolated work.
    - Keep .env gitignored, .env.example committed, never commit .venv/sif.db.
@@ -188,7 +188,7 @@ WHO DOES WHAT - ROLES EXPLAINED FOR EVERYONE
    - Write good commit messages like "feat: add CCTV page" not "fix stuff".
 
 8. QA / DEMO TEAM - The Testers (Everyone)
-   Plain: They make sure everything works for the judges.
+   Plain: They make sure everything works before a live demo.
 
    To Do:
    - Prepare 2 canned CCTV clips (PPE violation, fall) + 1 leakage clip.
@@ -213,9 +213,9 @@ WHERE TO FIND THINGS
 - Website code: frontend/src/pages/ (Dashboard, Reports, ReportDetails, AIPrediction, Landing)
 - Backend code: backend/main.py, crud.py, schemas.py, database.py, utils.py, seed.py
 - AI code: ai/main.py, analyser.py, vision.py (new), train_model.py
-- Database: database/init.sql, backend/models.py
+- Database: backend/models.py
 - Docker: docker-compose.yml, backend/Dockerfile, ai/Dockerfile, frontend/Dockerfile, start.sh
-- Docs: docs/Hackathon_Judge_QA.pdf, Hackathon_Brief.pdf, DevOps_Database.pdf, New_Project-Ideas.pdf
+- Docs: docs/Hackathon_Brief.pdf, DevOps_Database.pdf, New_Project-Ideas.pdf
 - Data: data/reports_50.csv (R-101..R-150), data/reports_new_50.csv (R-201..R-250), data/cctv/ (videos)
 - GitHub: yugantyadav/OIL-SIF-PRECURSOR, branch main, tag v0.5
 
