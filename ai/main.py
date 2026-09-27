@@ -32,6 +32,7 @@ class AnalyzeRequest(BaseModel):
 class SIFResult(BaseModel):
     sif_probability: float
     sif_flag: bool
+    risk_level: str
     confidence_level: str
     explanation_snippets: list[str] = []
 
@@ -87,21 +88,28 @@ async def analyze(request: AnalyzeRequest):
         # GET CONFIDENCE
         # ------------------------------------------
 
+        # Keep SIF probability and model confidence separate.
+        # SIF probability answers: "How likely is the SIF class?"
+        # Confidence answers: "How confident is the model in its predicted class?"
+        sif_probability = float(result["sif_probability"])
         confidence = float(result["confidence"])
-
-
-        # ------------------------------------------
-        # DETERMINE CONFIDENCE LEVEL
-        # ------------------------------------------
 
         if confidence >= 0.80:
             confidence_level = "high"
-
         elif confidence >= 0.60:
             confidence_level = "medium"
-
         else:
             confidence_level = "low"
+
+        # Risk is based on SIF probability, not model confidence.
+        if sif_probability >= 0.75:
+            risk_level = "Critical"
+        elif sif_probability >= 0.60:
+            risk_level = "High"
+        elif sif_probability >= 0.35:
+            risk_level = "Medium"
+        else:
+            risk_level = "Low"
 
 
         # ------------------------------------------
@@ -110,9 +118,11 @@ async def analyze(request: AnalyzeRequest):
 
         sif_result = SIFResult(
 
-            sif_probability=confidence,
+            sif_probability=sif_probability,
 
             sif_flag=result["sif_potential"],
+
+            risk_level=risk_level,
 
             confidence_level=confidence_level,
 

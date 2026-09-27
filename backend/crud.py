@@ -220,16 +220,39 @@ def reports_pending_analysis(db: Session, batch_id: str) -> List[models.Report]:
 def save_ai_result(db: Session, report: models.Report, ai_response: dict) -> models.Classification:
     sif = ai_response.get("sif", {})
 
+    # Update the report's current risk using the AI assessment.
+    risk_level = sif.get("risk_level")
+
+    # Fallback in case an older AI service does not return risk_level.
+    if not risk_level:
+        sif_probability = float(sif.get("sif_probability", 0.0))
+
+        if sif_probability >= 0.75:
+            risk_level = "Critical"
+        elif sif_probability >= 0.60:
+            risk_level = "High"
+        elif sif_probability >= 0.35:
+            risk_level = "Medium"
+        else:
+            risk_level = "Low"
+
+    # Store the AI-assessed risk on the report itself.
+    report.risk = risk_level
+
+    # Save the AI classification.
     classification = models.Classification(
         report_id=report.id,
         sif_probability=sif.get("sif_probability", 0.0),
         sif_flag=bool(sif.get("sif_flag", False)),
         confidence_level=sif.get("confidence_level"),
         model_version="hybrid-v1",
-        explanation_snippets=json.dumps(sif.get("explanation_snippets", [])),
+        explanation_snippets=json.dumps(
+            sif.get("explanation_snippets", [])
+        ),
     )
     db.add(classification)
 
+    # Save Life-Saving Rule tags.
     for tag in ai_response.get("lsr_tags", []):
         db.add(models.LSRTag(
             report_id=report.id,
@@ -238,6 +261,7 @@ def save_ai_result(db: Session, report: models.Report, ai_response: dict) -> mod
             matched_keywords=json.dumps(tag.get("matched_keywords", [])),
         ))
 
+    # Save extracted entities.
     for entity in ai_response.get("entities", []):
         db.add(models.Entity(
             report_id=report.id,
@@ -246,8 +270,10 @@ def save_ai_result(db: Session, report: models.Report, ai_response: dict) -> mod
             confidence=entity.get("confidence"),
         ))
 
+    # Persist the updated report, classification, tags and entities.
     db.commit()
     db.refresh(classification)
+
     return classification
 
 

@@ -27,26 +27,47 @@ def _ensure_loaded():
         _vectorizer = joblib.load(VECTORIZER_PATH)
 
 def predict_sif(report_text):
+    """Return SIF prediction, SIF probability, and prediction confidence.
+
+    These are intentionally separate values: the probability of the SIF class
+    is not the same thing as the model confidence (the probability of the
+    class the model actually predicted).
+    """
     _ensure_loaded()
     text_vector = _vectorizer.transform([report_text])
-    prediction = _model.predict(text_vector)[0]
+    prediction = bool(_model.predict(text_vector)[0])
     probabilities = _model.predict_proba(text_vector)[0]
-    confidence = max(probabilities)
-    return bool(prediction), round(float(confidence), 4)
+
+    # The model classes are [False, True]. Find the probability belonging
+    # specifically to the True/SIF class instead of using max(probabilities).
+    classes = list(_model.classes_)
+    try:
+        sif_index = classes.index(True)
+    except ValueError:
+        # Defensive fallback for models that store labels as 0/1.
+        sif_index = classes.index(1) if 1 in classes else len(classes) - 1
+
+    sif_probability = float(probabilities[sif_index])
+    confidence = float(max(probabilities))
+    return prediction, round(sif_probability, 4), round(confidence, 4)
 
 def analyse_report(report_text):
     text = report_text.lower()
-    sif_prediction, ml_confidence = predict_sif(report_text)
-    # Hydrocarbon / leakage boost — oil & gas leak near pressurized equipment is SIF precursor even if ML is uncertain
+    sif_prediction, sif_probability, ml_confidence = predict_sif(report_text)
+    # Hydrocarbon / leakage boost — oil & gas leak near pressurized equipment is a
+    # SIF precursor even if the ML model is uncertain. This is a rule-based
+    # override, so we raise the SIF probability to the documented 0.82 floor.
     LEAKAGE_KEYWORDS = ["oil leakage","oil leak","leakage","gas leak","hydrocarbon","oil spill","spill","leak detected"]
     leakage_hits = [k for k in LEAKAGE_KEYWORDS if k in text]
     if leakage_hits:
         sif_prediction = True
+        sif_probability = max(sif_probability, 0.82)
         ml_confidence = max(ml_confidence, 0.82)
 
     result = {
         "sif_potential": sif_prediction,
-        "confidence": ml_confidence,
+        "sif_probability": round(float(sif_probability), 4),
+        "confidence": round(float(ml_confidence), 4),
         "life_saving_rule": "None",
         "activity": "Unknown",
         "location": "Unknown",
